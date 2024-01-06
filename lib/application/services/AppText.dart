@@ -7,7 +7,8 @@ class AppText extends StatelessWidget {
   Color? color;
   double? size;
 
-  AppText({required this.txt, this.fw, this.fs, this.color, this.size});
+  AppText(
+      {super.key, required this.txt, this.fw, this.fs, this.color, this.size});
 
   @override
   Widget build(BuildContext context) {

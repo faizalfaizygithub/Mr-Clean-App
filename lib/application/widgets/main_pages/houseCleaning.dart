@@ -16,23 +16,23 @@ class HouseCleanScreen extends StatefulWidget {
 
 class _HouseCleanScreenState extends State<HouseCleanScreen> {
   bool _click = true;
-  int _addamount = 0;
-  int _amount = 2499;
 
-  bool enabledcolor = false;
+  int _addamount = 0;
+  int get addamount => _addamount;
+  int _amount = 2499;
+  int get amount => _amount;
 
   @override
   Widget build(BuildContext context) {
-    Widget container(
-      final String text,
-      final Function() acn,
-    ) {
+    final inclutiondatas = Provider.of<InclusionProvider>(context);
+    final exclutiondatas = Provider.of<ExclusionProvider>(context);
+
+    Widget container(final String types, final Function() acn) {
       return Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(
-              color: enabledcolor ? Colors.blue : Colors.grey, width: 2),
-          color: Colors.grey.shade100,
+          border: Border.all(color: Colors.grey, width: 2),
+          color: Colors.blue,
         ),
         alignment: Alignment.center,
         height: 50,
@@ -40,16 +40,14 @@ class _HouseCleanScreenState extends State<HouseCleanScreen> {
         child: TextButton(
           onPressed: acn,
           child: AppText(
-            txt: text,
+            txt: types,
             size: 18,
-            color: Colors.blue,
+            color: Colors.grey.shade100,
           ),
         ),
       );
     }
 
-    final inclutiondatas = Provider.of<InclusionProvider>(context);
-    final exclutiondatas = Provider.of<ExclusionProvider>(context);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -79,8 +77,6 @@ class _HouseCleanScreenState extends State<HouseCleanScreen> {
                 () {
                   setState(() {
                     _amount = _amount = 2499;
-                    enabledcolor = !enabledcolor;
-                    enabledcolor ? Colors.blue : Colors.grey;
                   });
                 },
               ),
@@ -89,8 +85,6 @@ class _HouseCleanScreenState extends State<HouseCleanScreen> {
                 () {
                   setState(() {
                     _amount = _amount = 2799;
-                    enabledcolor = !enabledcolor;
-                    enabledcolor ? Colors.blue : Colors.grey;
                   });
                 },
               ),
@@ -99,11 +93,9 @@ class _HouseCleanScreenState extends State<HouseCleanScreen> {
                 () {
                   setState(() {
                     _amount = _amount = 2999;
-                    enabledcolor = !enabledcolor;
-                    enabledcolor ? Colors.blue : Colors.grey;
                   });
                 },
-              ),
+              )
             ],
           ),
         ),
@@ -249,7 +241,12 @@ class _HouseCleanScreenState extends State<HouseCleanScreen> {
                 color: Colors.black,
                 size: 20,
               ),
-              onPressed: () {},
+              onPressed: () {
+                setState(() {
+                  Navigator.pushNamed(context, 'scheduleScreen',
+                      arguments: {'price': _addamount});
+                });
+              },
               icon: Icon(Icons.arrow_forward_ios),
             )
           ],
