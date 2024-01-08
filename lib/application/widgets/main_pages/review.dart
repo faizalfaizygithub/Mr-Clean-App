@@ -68,7 +68,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               AppText(
-                txt: 'Cleaning(Full Home Deep Cleaning),',
+                txt: '',
                 fw: FontWeight.bold,
                 size: 25,
               ),

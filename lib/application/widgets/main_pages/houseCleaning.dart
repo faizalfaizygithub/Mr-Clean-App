@@ -4,6 +4,7 @@ import 'package:clean_app/application/widgets/Carousel.dart';
 import 'package:clean_app/application/widgets/Services.dart';
 import 'package:clean_app/data/provider/exclusion_provider.dart';
 import 'package:clean_app/data/provider/inclusion_provider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -15,8 +16,12 @@ class HouseCleanScreen extends StatefulWidget {
 }
 
 class _HouseCleanScreenState extends State<HouseCleanScreen> {
-  bool _click = true;
+  final CollectionReference review =
+      FirebaseFirestore.instance.collection('review');
 
+  bool _click = true;
+  String _addedType = 'Classic';
+  String _selectedType = 'Classic';
   int _addamount = 0;
   int get addamount => _addamount;
   int _amount = 2499;
@@ -27,30 +32,50 @@ class _HouseCleanScreenState extends State<HouseCleanScreen> {
     final inclutiondatas = Provider.of<InclusionProvider>(context);
     final exclutiondatas = Provider.of<ExclusionProvider>(context);
 
-    Widget container(final String types, final Function() acn) {
+    Widget container(
+      final types,
+      final Function() acn,
+    ) {
       return Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           border: Border.all(color: Colors.grey, width: 2),
-          color: Colors.blue,
+          color: const Color.fromARGB(255, 6, 3, 19),
         ),
         alignment: Alignment.center,
         height: 50,
         width: 110,
-        child: TextButton(
-          onPressed: acn,
+        child: InkWell(
+          onTap: acn,
           child: AppText(
             txt: types,
             size: 18,
-            color: Colors.grey.shade100,
+            color: const Color.fromARGB(255, 60, 163, 247),
           ),
         ),
       );
     }
 
+    void addHouseCleaningdata() {
+      final Housedata = {
+        'name': 'Full Home Deep Cleaning',
+        'price': _addamount,
+        'types': _addedType,
+      };
+      review.add(Housedata);
+    }
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back_ios,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
         title: AppText(
           txt: 'Full Home Deep Cleaning',
           fw: FontWeight.bold,
@@ -58,7 +83,9 @@ class _HouseCleanScreenState extends State<HouseCleanScreen> {
         ),
         actions: [
           IconButton(
-              onPressed: () {}, icon: const Icon(Icons.shopping_cart_rounded))
+            onPressed: () {},
+            icon: const Icon(Icons.shopping_cart_rounded),
+          ),
         ],
       ),
       body: ListView(children: [
@@ -69,35 +96,30 @@ class _HouseCleanScreenState extends State<HouseCleanScreen> {
         gyap(heightgyap: 20),
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              container(
-                'Classic',
-                () {
-                  setState(() {
-                    _amount = _amount = 2499;
-                  });
-                },
-              ),
-              container(
-                'Premium',
-                () {
-                  setState(() {
-                    _amount = _amount = 2799;
-                  });
-                },
-              ),
-              container(
-                'Platinum',
-                () {
-                  setState(() {
-                    _amount = _amount = 2999;
-                  });
-                },
-              )
-            ],
-          ),
+          child:
+              Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+            container('Classic', () {
+              setState(() {
+                _selectedType = _selectedType = 'Classic';
+                _amount = _amount = 2499;
+              });
+            }),
+            container(
+              'Premium',
+              () {
+                setState(() {
+                  _selectedType = _selectedType = 'Premium';
+                  _amount = _amount = 2799;
+                });
+              },
+            ),
+            container('Platinum', () {
+              setState(() {
+                _selectedType = _selectedType = 'Platinum';
+                _amount = _amount = 2999;
+              });
+            }),
+          ]),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
@@ -137,6 +159,7 @@ class _HouseCleanScreenState extends State<HouseCleanScreen> {
                 ),
                 onPressed: () {
                   setState(() {
+                    _addedType = _addedType = _selectedType;
                     _addamount = _addamount = _amount;
                   });
                 },
@@ -233,7 +256,13 @@ class _HouseCleanScreenState extends State<HouseCleanScreen> {
             AppText(
               txt: '₹ $_addamount-/',
               color: Colors.black,
+              fw: FontWeight.bold,
               size: 22,
+            ),
+            AppText(
+              txt: '--$_addedType--',
+              color: Colors.black38,
+              size: 18,
             ),
             TextButton.icon(
               label: AppText(
@@ -243,11 +272,14 @@ class _HouseCleanScreenState extends State<HouseCleanScreen> {
               ),
               onPressed: () {
                 setState(() {
-                  Navigator.pushNamed(context, 'scheduleScreen',
-                      arguments: {'price': _addamount});
+                  addHouseCleaningdata();
+
+                  Navigator.pushNamed(context, 'scheduleScreen', arguments: {
+                    'price': _addamount,
+                  });
                 });
               },
-              icon: Icon(Icons.arrow_forward_ios),
+              icon: const Icon(Icons.arrow_forward_ios),
             )
           ],
         ),

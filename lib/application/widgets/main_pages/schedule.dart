@@ -1,6 +1,7 @@
 import 'package:clean_app/application/services/AppText.dart';
 import 'package:clean_app/application/widgets/Services.dart';
 import 'package:clean_app/application/widgets/timeschedule.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class SchedulePage extends StatefulWidget {
@@ -9,6 +10,11 @@ class SchedulePage extends StatefulWidget {
 }
 
 class _SchedulePageState extends State<SchedulePage> {
+  final CollectionReference review =
+      FirebaseFirestore.instance.collection('review');
+
+  // ignore: recursive_getters
+
   double? forSchedule;
   int tappeddate = -1;
   int _addamount = 0;
@@ -46,39 +52,8 @@ class _SchedulePageState extends State<SchedulePage> {
     'Wed',
     'Theus',
   ];
-  final daycount = [
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    9,
-    10,
-    11,
-    12,
-    13,
-    14,
-    15,
-    16,
-    17,
-    18,
-    19,
-    20,
-    21,
-    22,
-    23,
-    24,
-    25,
-    26,
-    27,
-    28,
-    29,
-    30,
-    31
-  ];
+
+  final daycount = List.generate(31, (index) => index + 1);
 
   @override
   Widget build(BuildContext context) {
@@ -98,74 +73,88 @@ class _SchedulePageState extends State<SchedulePage> {
     }
 
     return Scaffold(
-      appBar: AppBar(title: AppText(txt: 'Schedule')),
+      appBar: AppBar(
+        title: AppText(
+          txt: 'Schedule',
+        ),
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+            icon: const Icon(
+              Icons.arrow_back_ios,
+            ),
+            onPressed: () {}),
+        centerTitle: true,
+      ),
       body: Padding(
         padding: const EdgeInsets.only(top: 50.0, left: 10, right: 10),
-        child: Column(children: [
-          Container(
-            height: 130,
-            child: ListView.separated(
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (
-                context,
-                index,
-              ) {
-                return InkWell(
-                  onTap: () {
-                    setState(() {
-                      tappeddate = index;
-                    });
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: tappeddate == index ? Colors.blue : Colors.blue,
-                        width: 2,
+        child: Column(
+          children: [
+            Container(
+              height: 130,
+              child: ListView.separated(
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (
+                  context,
+                  index,
+                ) {
+                  return InkWell(
+                    onTap: () {
+                      setState(() {
+                        tappeddate = index;
+                      });
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color:
+                              tappeddate == index ? Colors.blue : Colors.blue,
+                          width: 2,
+                        ),
+                        borderRadius: BorderRadius.circular(20),
+                        color: tappeddate == index
+                            ? Colors.blue.shade300
+                            : Colors.white,
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Colors.grey,
+                            spreadRadius: 1,
+                            blurRadius: 3,
+                          )
+                        ],
                       ),
-                      borderRadius: BorderRadius.circular(20),
-                      color: tappeddate == index
-                          ? Colors.blue.shade300
-                          : Colors.white,
-                      boxShadow: const [
-                        BoxShadow(
-                          color: Colors.grey,
-                          spreadRadius: 1,
-                          blurRadius: 3,
-                        )
-                      ],
+                      width: 130,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          AppText(
+                            txt: 'Jan',
+                            size: 19,
+                          ),
+                          AppText(
+                            txt: daycount[index].toString(),
+                            size: 19,
+                          ),
+                          AppText(
+                            txt: daysList[index],
+                            size: 19,
+                          ),
+                        ],
+                      ),
                     ),
-                    width: 130,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        AppText(
-                          txt: 'Jan',
-                          size: 19,
-                        ),
-                        AppText(
-                          txt: daycount[index].toString(),
-                          size: 19,
-                        ),
-                        AppText(
-                          txt: daysList[index],
-                          size: 19,
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              },
-              itemCount: 31, // Set itemCount to the length of daysList
-              separatorBuilder: (context, index) {
-                return const SizedBox(
-                  width: 10,
-                );
-              },
+                  );
+                },
+                itemCount: 31, // Set itemCount to the length of daysList
+                separatorBuilder: (context, index) {
+                  return const SizedBox(
+                    width: 10,
+                  );
+                },
+              ),
             ),
-          ),
-          gyap(heightgyap: 30),
-          Expanded(child: TimeSchedule()),
-        ]),
+            gyap(heightgyap: 30),
+            const Expanded(child: TimeSchedule()),
+          ],
+        ),
       ),
       bottomNavigationBar: Container(
         padding: const EdgeInsets.only(left: 10, right: 10),
@@ -185,13 +174,16 @@ class _SchedulePageState extends State<SchedulePage> {
                 size: 20,
               ),
               onPressed: () {
+                // Navigate to the 'cartScreen' only if reviewSnap is not null
+
                 setState(() {
-                  Navigator.pushNamed(context, 'reviewSceen',
-                      arguments: {'price': forSchedule});
+                  Navigator.pushNamed(context, 'cartScreen', arguments: {
+                    'price': forSchedule,
+                  });
                 });
               },
               icon: const Icon(Icons.arrow_forward_ios),
-            )
+            ),
           ],
         ),
       ),

@@ -1,14 +1,22 @@
 import 'package:clean_app/application/widgets/main_pages/home.dart';
 import 'package:clean_app/application/widgets/main_pages/houseCleaning.dart';
 import 'package:clean_app/application/widgets/main_pages/review.dart';
+import 'package:clean_app/application/widgets/main_pages/review_page.dart';
 import 'package:clean_app/application/widgets/main_pages/schedule.dart';
 import 'package:clean_app/data/provider/add_amount_provider.dart';
 import 'package:clean_app/data/provider/exclusion_provider.dart';
 import 'package:clean_app/data/provider/inclusion_provider.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+import 'firebase_options.dart';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -22,14 +30,15 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (context) => InclusionProvider()),
         ChangeNotifierProvider(create: (context) => ExclusionProvider()),
-        ChangeNotifierProvider(create: (context) => CleaningPriceProvider())
+        ChangeNotifierProvider(create: (context) => HouseCleaningProvider())
       ],
       child: MaterialApp(
           routes: {
             'homeScreen': (context) => HomePage(),
             'houseScreen': (context) => HouseCleanScreen(),
             'scheduleScreen': (context) => SchedulePage(),
-            'reviewSceen': (context) => ReviewScreen()
+            'reviewSceen': (context) => ReviewScreen(),
+            'cartScreen': (context) => Cart(),
           },
           initialRoute: 'homeScreen',
           debugShowCheckedModeBanner: false,

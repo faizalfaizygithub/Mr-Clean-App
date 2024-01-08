@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "945491701132",
+    "project_id": "cleanapp-a4fb0",
+    "storage_bucket": "cleanapp-a4fb0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:945491701132:android:84c253d06c5e1bfcbb3aa9",
+        "android_client_info": {
+          "package_name": "com.example.clean_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6xsfFx9GKybPVWUMzby4XMP2owwgQsCA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
