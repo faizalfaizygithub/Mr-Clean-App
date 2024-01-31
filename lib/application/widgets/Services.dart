@@ -24,21 +24,22 @@ class ServiceCard extends StatelessWidget {
             blurRadius: 5),
       ]),
       height: 150,
-      width: double.infinity,
+      width: MediaQuery.of(context).size.width,
       child: Card(
           child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           gyap(widthgyap: 10),
           CircleAvatar(
             backgroundImage: AssetImage(img),
-            radius: 50,
+            radius: 35,
           ),
-          gyap(widthgyap: 25),
+          gyap(widthgyap: 5),
           AppText(
             txt: title,
-            size: 20,
+            size: 15,
           ),
-          gyap(widthgyap: 20),
+          gyap(widthgyap: 10),
           IconButton(
             onPressed: action,
             icon: const Icon(Icons.arrow_forward_ios),

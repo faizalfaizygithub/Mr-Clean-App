@@ -18,7 +18,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         elevation: 20,
         actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.shopping_cart))
+          IconButton(onPressed: () {}, icon: const Icon(Icons.shopping_cart))
         ],
         centerTitle: true,
         title: AppText(
@@ -31,19 +31,17 @@ class _HomePageState extends State<HomePage> {
         padding: const EdgeInsets.all(10.0),
         child: ListView(
           children: [
-            Container(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 20, left: 20),
-                child: Row(
-                  children: [
-                    AppText(
-                      txt: 'Our Services for you..',
-                      size: 22,
-                      color: Colors.black87,
-                      fs: FontStyle.italic,
-                    ),
-                  ],
-                ),
+            Padding(
+              padding: const EdgeInsets.only(top: 20, left: 20),
+              child: Row(
+                children: [
+                  AppText(
+                    txt: 'Our Services for you..',
+                    size: 18,
+                    color: Colors.black87,
+                    fs: FontStyle.italic,
+                  ),
+                ],
               ),
             ),
             gyap(heightgyap: 15),
@@ -89,7 +87,7 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      drawer: Drawer(),
+      drawer: const Drawer(),
     );
   }
 }

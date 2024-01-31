@@ -16,7 +16,7 @@ class HouseCleanScreen extends StatefulWidget {
 }
 
 class _HouseCleanScreenState extends State<HouseCleanScreen> {
-  final CollectionReference review =
+  final CollectionReference _items =
       FirebaseFirestore.instance.collection('review');
 
   bool _click = true;
@@ -26,6 +26,12 @@ class _HouseCleanScreenState extends State<HouseCleanScreen> {
   int get addamount => _addamount;
   int _amount = 2499;
   int get amount => _amount;
+  // ignore: non_constant_identifier_names
+  void addname() {
+    final name = {
+      'name': 'Full Home Deep Cleaning',
+    };
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,20 +55,11 @@ class _HouseCleanScreenState extends State<HouseCleanScreen> {
           onTap: acn,
           child: AppText(
             txt: types,
-            size: 18,
+            size: 14,
             color: const Color.fromARGB(255, 60, 163, 247),
           ),
         ),
       );
-    }
-
-    void addHouseCleaningdata() {
-      final Housedata = {
-        'name': 'Full Home Deep Cleaning',
-        'price': _addamount,
-        'types': _addedType,
-      };
-      review.add(Housedata);
     }
 
     return Scaffold(
@@ -76,10 +73,12 @@ class _HouseCleanScreenState extends State<HouseCleanScreen> {
             Navigator.pop(context);
           },
         ),
+        leadingWidth: 20,
+        clipBehavior: Clip.none,
         title: AppText(
           txt: 'Full Home Deep Cleaning',
           fw: FontWeight.bold,
-          size: 23,
+          size: 17,
         ),
         actions: [
           IconButton(
@@ -141,11 +140,11 @@ class _HouseCleanScreenState extends State<HouseCleanScreen> {
               leading: AppText(
                 txt: 'Starts at ',
                 color: Colors.blue,
-                size: 22,
+                size: 14,
               ),
               title: AppText(
                 txt: '₹ $_amount-/',
-                size: 25,
+                size: 16,
                 color: Colors.black,
                 fw: FontWeight.bold,
               ),
@@ -179,7 +178,7 @@ class _HouseCleanScreenState extends State<HouseCleanScreen> {
               },
               child: AppText(
                 txt: 'Inclusion',
-                size: 20,
+                size: 16,
                 color: Colors.blue,
               ),
             ),
@@ -192,7 +191,7 @@ class _HouseCleanScreenState extends State<HouseCleanScreen> {
               },
               child: AppText(
                 txt: 'Exclusion',
-                size: 20,
+                size: 16,
                 color: Colors.blue,
               ),
             ),
@@ -215,7 +214,7 @@ class _HouseCleanScreenState extends State<HouseCleanScreen> {
                         ),
                         AppText(
                           txt: inclutiondatas.inclusions.toString(),
-                          size: 18,
+                          size: 14,
                         ),
                       ],
                     ),
@@ -238,7 +237,7 @@ class _HouseCleanScreenState extends State<HouseCleanScreen> {
                         ),
                         AppText(
                           txt: exclutiondatas.exclusions.toString(),
-                          size: 18,
+                          size: 14,
                         ),
                       ],
                     ),
@@ -257,30 +256,25 @@ class _HouseCleanScreenState extends State<HouseCleanScreen> {
               txt: '₹ $_addamount-/',
               color: Colors.black,
               fw: FontWeight.bold,
-              size: 22,
+              size: 15,
             ),
-            AppText(
-              txt: '--$_addedType--',
-              color: Colors.black38,
-              size: 18,
-            ),
+            AppText(txt: '--$_addedType--', color: Colors.black38, size: 10),
             TextButton.icon(
               label: AppText(
                 txt: 'Continue',
                 color: Colors.black,
-                size: 20,
+                size: 14,
               ),
               onPressed: () {
                 setState(() {
-                  addHouseCleaningdata();
-
                   Navigator.pushNamed(context, 'scheduleScreen', arguments: {
                     'price': _addamount,
+                    'types': _addedType,
                   });
                 });
               },
               icon: const Icon(Icons.arrow_forward_ios),
-            )
+            ),
           ],
         ),
       ),
