@@ -39,3 +39,13 @@ List<String> homephotos = [
   'assets/house2.jpeg',
   'assets/house.jpeg',
 ];
+
+//vehicles
+List<String> vehiclesphotos = [
+  'assets/vehicles/bike1.jpg',
+  'assets/vehicles/bike2.jpg',
+  'assets/vehicles/bike4.webp',
+  'assets/vehicles/car1.webp',
+  'assets/vehicles/car2.jpg',
+  'assets/vehicles/car4.jpg',
+];

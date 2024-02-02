@@ -1,4 +1,4 @@
-import 'package:clean_app/application/services/AppText.dart';
+import 'package:clean_app/application/componets/AppText.dart';
 import 'package:clean_app/application/widgets/Services.dart';
 import 'package:clean_app/application/widgets/textInputField.dart';
 import 'package:clean_app/data/provider/house_cleaning_provider.dart';
@@ -77,7 +77,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Review',
+          'Report Summary',
           style: HeadingStyle,
         ),
         leading: IconButton(
@@ -259,8 +259,9 @@ class _ReviewScreenState extends State<ReviewScreen> {
           children: [
             AppText(
               txt: '₹$forReview-/'.toString(),
-              color: const Color.fromRGBO(0, 0, 0, 1),
-              size: 16,
+              color: Colors.black,
+              fw: FontWeight.bold,
+              size: 15,
             ),
             TextButton.icon(
               label: AppText(
@@ -269,7 +270,11 @@ class _ReviewScreenState extends State<ReviewScreen> {
                 size: 14,
               ),
               onPressed: () {
-                Navigator.pushNamed(context, 'orderConfirm');
+                setState(() {
+                  Navigator.pushNamed(context, 'orderConfirm', arguments: {
+                    'price': forReview,
+                  });
+                });
               },
               icon: const Icon(Icons.arrow_forward_ios),
             )

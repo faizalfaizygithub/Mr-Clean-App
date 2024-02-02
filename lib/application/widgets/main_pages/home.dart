@@ -1,5 +1,5 @@
-import 'package:clean_app/application/services/AppText.dart';
-import 'package:clean_app/application/services/assets.dart';
+import 'package:clean_app/application/componets/AppText.dart';
+import 'package:clean_app/application/componets/assets.dart';
 import 'package:clean_app/application/widgets/Carousel.dart';
 import 'package:clean_app/application/widgets/Services.dart';
 import 'package:flutter/material.dart';
@@ -60,7 +60,7 @@ class _HomePageState extends State<HomePage> {
                 img: carlogo,
                 title: 'Vehicle Cleaning',
                 action: () {
-                  Navigator.of(context).pushNamed('houseScreen');
+                  Navigator.of(context).pushNamed('vehicleScreen');
                 }),
             gyap(heightgyap: 15),
             ServiceCard(

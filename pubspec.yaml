@@ -44,6 +44,7 @@ dependencies:
   google_fonts: ^6.1.0
   date_picker_timeline: ^1.2.5
   get: ^4.6.6
+  lottie: ^3.0.0
   
 
 dev_dependencies:
@@ -73,6 +74,8 @@ flutter:
       - assets/
       - assets/img/
       - assets/logo/
+      - assets/json/
+      - assets/vehicles/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

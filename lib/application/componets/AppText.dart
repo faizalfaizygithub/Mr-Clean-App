@@ -37,18 +37,18 @@ class AppText extends StatelessWidget {
 
 TextStyle get subHeadingStyle {
   return GoogleFonts.lato(
-      textStyle: TextStyle(
-          fontSize: 15,
-          fontWeight: FontWeight.bold,
-          color: Color.fromARGB(255, 131, 126, 126)));
+      textStyle: const TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.bold,
+  ));
 }
 
 TextStyle get HeadingStyle {
   return GoogleFonts.lato(
-      textStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold));
+      textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold));
 }
 
 TextStyle get hintStyle {
   return GoogleFonts.lato(
-      textStyle: TextStyle(fontSize: 13, color: Colors.black));
+      textStyle: const TextStyle(fontSize: 11, color: Colors.black));
 }

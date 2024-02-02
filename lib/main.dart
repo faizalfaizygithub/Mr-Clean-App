@@ -1,8 +1,9 @@
+import 'package:clean_app/application/widgets/main_pages/HouseCleaning/houseCleaning.dart';
+import 'package:clean_app/application/widgets/main_pages/HouseCleaning/order_confirm.dart';
+import 'package:clean_app/application/widgets/main_pages/HouseCleaning/review_page.dart';
+import 'package:clean_app/application/widgets/main_pages/HouseCleaning/schedule.dart';
+import 'package:clean_app/application/widgets/main_pages/Vehicle_Cleaning/vehicle_cleaning.dart';
 import 'package:clean_app/application/widgets/main_pages/home.dart';
-import 'package:clean_app/application/widgets/main_pages/houseCleaning.dart';
-import 'package:clean_app/application/widgets/main_pages/order_confirm.dart';
-import 'package:clean_app/application/widgets/main_pages/review_page.dart';
-import 'package:clean_app/application/widgets/main_pages/schedule.dart';
 import 'package:clean_app/data/provider/exclusion_provider.dart';
 import 'package:clean_app/data/provider/house_cleaning_provider.dart';
 import 'package:clean_app/data/provider/inclusion_provider.dart';
@@ -39,6 +40,7 @@ class MyApp extends StatelessWidget {
             'scheduleScreen': (context) => const ScheduleScreen(),
             'cartScreen': (context) => const ReviewScreen(),
             'orderConfirm': (context) => const OrderConfirmation(),
+            'vehicleScreen': (context) => const VehicleCleanScreen(),
           },
           initialRoute: 'homeScreen',
           debugShowCheckedModeBanner: false,

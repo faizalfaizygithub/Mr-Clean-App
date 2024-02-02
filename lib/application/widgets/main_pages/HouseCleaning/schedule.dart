@@ -1,6 +1,6 @@
 import 'dart:core';
 
-import 'package:clean_app/application/services/AppText.dart';
+import 'package:clean_app/application/componets/AppText.dart';
 import 'package:clean_app/application/widgets/Services.dart';
 import 'package:clean_app/application/widgets/textInputField.dart';
 import 'package:clean_app/data/provider/house_cleaning_provider.dart';
@@ -156,7 +156,8 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
             AppText(
               txt: '₹$forSchedule-/'.toString(),
               color: Colors.black,
-              size: 16,
+              fw: FontWeight.bold,
+              size: 15,
             ),
             AppText(txt: '$type', color: Colors.black38, size: 10),
             TextButton.icon(

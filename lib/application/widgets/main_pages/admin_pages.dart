@@ -1,4 +1,4 @@
-import 'package:clean_app/application/services/AppText.dart';
+import 'package:clean_app/application/componets/AppText.dart';
 import 'package:clean_app/application/widgets/Services.dart';
 import 'package:clean_app/application/widgets/textInputField.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

@@ -1,10 +1,9 @@
-import 'package:clean_app/application/services/AppText.dart';
-import 'package:clean_app/application/services/assets.dart';
+import 'package:clean_app/application/componets/AppText.dart';
+import 'package:clean_app/application/componets/assets.dart';
 import 'package:clean_app/application/widgets/Carousel.dart';
 import 'package:clean_app/application/widgets/Services.dart';
 import 'package:clean_app/data/provider/exclusion_provider.dart';
 import 'package:clean_app/data/provider/inclusion_provider.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -16,9 +15,6 @@ class HouseCleanScreen extends StatefulWidget {
 }
 
 class _HouseCleanScreenState extends State<HouseCleanScreen> {
-  final CollectionReference _items =
-      FirebaseFirestore.instance.collection('review');
-
   bool _click = true;
   String _addedType = 'Classic';
   String _selectedType = 'Classic';

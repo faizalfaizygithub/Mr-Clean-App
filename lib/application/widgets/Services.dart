@@ -1,4 +1,4 @@
-import 'package:clean_app/application/services/AppText.dart';
+import 'package:clean_app/application/componets/AppText.dart';
 import 'package:flutter/material.dart';
 
 class ServiceCard extends StatelessWidget {
