@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:clean_app/application/widgets/Services.dart';
+import 'package:clean_app/application/componets/Services.dart';
 import 'package:flutter/material.dart';
 
 class CarouselScreen extends StatefulWidget {

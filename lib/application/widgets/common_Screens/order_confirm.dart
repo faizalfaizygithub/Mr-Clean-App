@@ -1,6 +1,6 @@
 import 'package:clean_app/application/componets/AppText.dart';
+import 'package:clean_app/application/componets/Services.dart';
 import 'package:clean_app/application/componets/my_button.dart';
-import 'package:clean_app/application/widgets/Services.dart';
 import 'package:clean_app/data/provider/house_cleaning_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
@@ -70,9 +70,10 @@ class _OrderConfirmationState extends State<OrderConfirmation> {
                       'Total Amount',
                       style: subHeadingStyle,
                     ),
-                    AppText(
-                      txt: '₹$forConfirm-/'.toString(),
-                    ),
+                    Text(
+                      '₹$forConfirm-/'.toString(),
+                      style: subHeadingStyle,
+                    )
                   ],
                 ),
               ),

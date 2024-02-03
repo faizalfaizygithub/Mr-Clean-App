@@ -23,7 +23,7 @@ class TextInputField extends StatelessWidget {
         children: [
           Text(
             title,
-            style: HeadingStyle,
+            style: subHeadingStyle,
           ),
           Container(
               margin: const EdgeInsets.only(top: 6),

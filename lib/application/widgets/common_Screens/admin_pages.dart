@@ -1,6 +1,6 @@
 import 'package:clean_app/application/componets/AppText.dart';
-import 'package:clean_app/application/widgets/Services.dart';
-import 'package:clean_app/application/widgets/textInputField.dart';
+import 'package:clean_app/application/componets/Services.dart';
+import 'package:clean_app/application/componets/textInputField.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';

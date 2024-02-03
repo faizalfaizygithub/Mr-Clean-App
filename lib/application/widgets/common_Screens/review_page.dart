@@ -1,6 +1,6 @@
 import 'package:clean_app/application/componets/AppText.dart';
-import 'package:clean_app/application/widgets/Services.dart';
-import 'package:clean_app/application/widgets/textInputField.dart';
+import 'package:clean_app/application/componets/Services.dart';
+import 'package:clean_app/application/componets/textInputField.dart';
 import 'package:clean_app/data/provider/house_cleaning_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -20,7 +20,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
   double? forReview;
   String? type;
   String? status;
-
+  String? name;
   @override
   Widget build(BuildContext context) {
     final args =
@@ -47,6 +47,16 @@ class _ReviewScreenState extends State<ReviewScreen> {
       // Handle other cases or provide a default value
       type = '';
     }
+    dynamic namevalue = args['name'];
+
+    if (namevalue is String) {
+      name = namevalue.toString();
+    } else if (namevalue is String) {
+      name = namevalue;
+    } else {
+      // Handle other cases or provide a default value
+      name = '';
+    }
 
     Widget paymentMethod(
       final paymntText,
@@ -62,13 +72,13 @@ class _ReviewScreenState extends State<ReviewScreen> {
         },
         value: paymntText,
         groupValue: status,
-        title: AppText(
-          txt: paymntText,
-          size: 13,
+        title: Text(
+          paymntText,
+          style: hintStyle,
         ),
         subtitle: AppText(
           txt: subtxt,
-          size: 11,
+          size: 10,
           color: Colors.grey,
         ),
       );
@@ -95,10 +105,9 @@ class _ReviewScreenState extends State<ReviewScreen> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                AppText(
-                  txt: context.watch<HouseCleaningProvider>().name,
-                  fw: FontWeight.bold,
-                  size: 22,
+                Text(
+                  '$name',
+                  style: HeadingStyle,
                 ),
                 gyap(heightgyap: 20),
                 Slidable(
@@ -120,26 +129,23 @@ class _ReviewScreenState extends State<ReviewScreen> {
                     ),
                   ]),
                   child: ListTile(
-                    leading: const Icon(
-                      Icons.arrow_back_ios_new,
-                      color: Colors.grey,
-                    ),
-                    tileColor: Colors.grey.shade100,
-                    title: AppText(
-                      txt: '2 BHK',
-                      size: 16,
-                    ),
-                    subtitle: AppText(
-                      txt: '$type',
-                      size: 13,
-                      color: Colors.grey,
-                    ),
-                    trailing: AppText(
-                      txt: '₹$forReview-/'.toString(),
-                      size: 18,
-                      fw: FontWeight.w500,
-                    ),
-                  ),
+                      leading: const Icon(
+                        Icons.arrow_back_ios_new,
+                        color: Colors.grey,
+                      ),
+                      tileColor: Colors.grey.shade100,
+                      title: Text(
+                        'Category',
+                        style: subHeadingStyle,
+                      ),
+                      subtitle: Text(
+                        '$type',
+                        style: hintStyle,
+                      ),
+                      trailing: Text(
+                        '₹$forReview-/'.toString(),
+                        style: subHeadingStyle,
+                      )),
                 ),
                 gyap(heightgyap: 30),
                 Card(
@@ -159,10 +165,9 @@ class _ReviewScreenState extends State<ReviewScreen> {
                         size: 24,
                         color: Colors.black,
                       ),
-                      title: AppText(
-                        txt: 'Apply Coupon',
-                        size: 14,
-                        color: Colors.black,
+                      title: Text(
+                        'Apply Coupon',
+                        style: subHeadingStyle,
                       ),
                       trailing: IconButton(
                         icon: const Icon(
@@ -179,11 +184,9 @@ class _ReviewScreenState extends State<ReviewScreen> {
                 const Divider(
                   thickness: 2,
                 ),
-                AppText(
-                  txt: 'Payment Summary',
-                  size: 16,
-                  color: Colors.black,
-                  fw: FontWeight.w700,
+                Text(
+                  'Payment Summary',
+                  style: subHeadingStyle,
                 ),
                 paymentsummary(
                   'Item Total',
@@ -200,10 +203,9 @@ class _ReviewScreenState extends State<ReviewScreen> {
                   thickness: 3,
                 ),
                 gyap(heightgyap: 30),
-                AppText(
-                  txt: 'Scheduled Date and Time:',
-                  size: 16,
-                  fw: FontWeight.w700,
+                Text(
+                  'Scheduled Date and Time:',
+                  style: subHeadingStyle,
                 ),
                 TextInputField(
                   controller: _dateController,
@@ -235,10 +237,9 @@ class _ReviewScreenState extends State<ReviewScreen> {
                   ],
                 ),
                 gyap(heightgyap: 30),
-                AppText(
-                  txt: 'Select Payment Method:',
-                  size: 16,
-                  fw: FontWeight.w700,
+                Text(
+                  'Select Payment Method:',
+                  style: subHeadingStyle,
                 ),
                 paymentMethod('UPI', 'Pay by any UPI app', () => null),
                 paymentMethod('Credit/Debit/ATM Card',
@@ -257,17 +258,14 @@ class _ReviewScreenState extends State<ReviewScreen> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            AppText(
-              txt: '₹$forReview-/'.toString(),
-              color: Colors.black,
-              fw: FontWeight.bold,
-              size: 15,
+            Text(
+              '₹$forReview-/'.toString(),
+              style: subHeadingStyle,
             ),
             TextButton.icon(
-              label: AppText(
-                txt: 'Confirm Order',
-                color: Colors.black,
-                size: 14,
+              label: Text(
+                'Confirm Order',
+                style: subHeadingStyle,
               ),
               onPressed: () {
                 setState(() {
@@ -294,31 +292,16 @@ class _ReviewScreenState extends State<ReviewScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          AppText(
-            txt: name,
-            size: 15,
-            color: Colors.black87,
+          Text(
+            name,
+            style: hintStyle,
           ),
-          AppText(
-            txt: rupees,
-            size: 15,
-            color: Colors.black87,
-            fw: FontWeight.w600,
-          ),
+          Text(
+            rupees,
+            style: subHeadingStyle,
+          )
         ],
       ),
     );
-  }
-
-  Widget scheduleDateTime(
-    buttonAction,
-    buttonIcon,
-    String buttonText,
-  ) {
-    return OutlinedButton.icon(
-        style: const ButtonStyle(),
-        onPressed: buttonAction,
-        icon: buttonIcon,
-        label: Text((buttonText).toString()));
   }
 }

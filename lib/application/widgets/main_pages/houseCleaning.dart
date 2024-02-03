@@ -1,7 +1,7 @@
 import 'package:clean_app/application/componets/AppText.dart';
+import 'package:clean_app/application/componets/Carousel.dart';
+import 'package:clean_app/application/componets/Services.dart';
 import 'package:clean_app/application/componets/assets.dart';
-import 'package:clean_app/application/widgets/Carousel.dart';
-import 'package:clean_app/application/widgets/Services.dart';
 import 'package:clean_app/data/provider/exclusion_provider.dart';
 import 'package:clean_app/data/provider/inclusion_provider.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +15,7 @@ class HouseCleanScreen extends StatefulWidget {
 }
 
 class _HouseCleanScreenState extends State<HouseCleanScreen> {
+  String _selectedName = 'Full Home Deep Cleaning';
   bool _click = true;
   String _addedType = 'Classic';
   String _selectedType = 'Classic';
@@ -22,12 +23,6 @@ class _HouseCleanScreenState extends State<HouseCleanScreen> {
   int get addamount => _addamount;
   int _amount = 2499;
   int get amount => _amount;
-  // ignore: non_constant_identifier_names
-  void addname() {
-    final name = {
-      'name': 'Full Home Deep Cleaning',
-    };
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -266,6 +261,7 @@ class _HouseCleanScreenState extends State<HouseCleanScreen> {
                   Navigator.pushNamed(context, 'scheduleScreen', arguments: {
                     'price': _addamount,
                     'types': _addedType,
+                    'name': _selectedName
                   });
                 });
               },

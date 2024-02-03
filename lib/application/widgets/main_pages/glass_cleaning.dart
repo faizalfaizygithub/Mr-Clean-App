@@ -1,54 +1,51 @@
 import 'package:clean_app/application/componets/AppText.dart';
+import 'package:clean_app/application/componets/Carousel.dart';
+import 'package:clean_app/application/componets/Services.dart';
 import 'package:clean_app/application/componets/assets.dart';
-import 'package:clean_app/application/widgets/Carousel.dart';
-import 'package:clean_app/application/widgets/Services.dart';
-import 'package:clean_app/data/provider/exclusion_provider.dart';
-import 'package:clean_app/data/provider/inclusion_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-class VehicleCleanScreen extends StatefulWidget {
-  const VehicleCleanScreen({super.key});
+class GlassCleaningScreen extends StatefulWidget {
+  const GlassCleaningScreen({super.key});
 
   @override
-  State<VehicleCleanScreen> createState() => _VehicleCleanScreenState();
+  State<GlassCleaningScreen> createState() => _GlassCleaningScreenState();
 }
 
-class _VehicleCleanScreenState extends State<VehicleCleanScreen> {
+class _GlassCleaningScreenState extends State<GlassCleaningScreen> {
+  @override
+  String _selectedName = 'Glass Facade Cleaning Services';
+
   bool _click = true;
   String _addedType = 'null';
-  String _selectedType = 'Bikes';
+  String _selectedType = 'Indoor';
   int _addamount = 0;
   int get addamount => _addamount;
   int _amount = 199;
   int get amount => _amount;
   // ignore: non_constant_identifier_names
-  void addname() {
-    final name = {
-      'name': 'Full Home Deep Cleaning',
-    };
-  }
 
   @override
   Widget build(BuildContext context) {
-    final inclutiondatas = Provider.of<InclusionProvider>(context);
-    final exclutiondatas = Provider.of<ExclusionProvider>(context);
-
     Widget container(
       final types,
       final Function() acn,
     ) {
       return Container(
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(color: Colors.grey, width: 2),
-            color: Colors.black87),
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: Colors.grey, width: 2),
+          color: const Color.fromARGB(255, 6, 3, 19),
+        ),
         alignment: Alignment.center,
         height: 50,
         width: 110,
         child: InkWell(
           onTap: acn,
-          child: AppText(txt: types, size: 14, color: Colors.white),
+          child: AppText(
+            txt: types,
+            size: 14,
+            color: const Color.fromARGB(255, 60, 163, 247),
+          ),
         ),
       );
     }
@@ -66,10 +63,9 @@ class _VehicleCleanScreenState extends State<VehicleCleanScreen> {
         ),
         leadingWidth: 20,
         clipBehavior: Clip.none,
-        title: AppText(
-          txt: 'Vehicle Cleaning',
-          fw: FontWeight.bold,
-          size: 17,
+        title: Text(
+          'Glass Facade Cleaning ',
+          style: HeadingStyle,
         ),
         actions: [
           IconButton(
@@ -83,31 +79,25 @@ class _VehicleCleanScreenState extends State<VehicleCleanScreen> {
         child: ListView(children: [
           gyap(heightgyap: 20),
           CarouselScreen(
-            photos: vehiclesphotos,
+            photos: glassphotos,
           ),
           gyap(heightgyap: 20),
           Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-            container('Bikes', () {
+            container('Normal', () {
               setState(() {
-                _selectedType = _selectedType = 'Bikes';
+                _selectedType = _selectedType = 'Normal';
                 _amount = _amount = 199;
               });
             }),
             container(
-              'Cars',
+              'Building',
               () {
                 setState(() {
-                  _selectedType = _selectedType = 'Cars';
-                  _amount = _amount = 399;
+                  _selectedType = _selectedType = 'Building';
+                  _amount = _amount = 2999;
                 });
               },
             ),
-            container('Others', () {
-              setState(() {
-                _selectedType = _selectedType = 'Others';
-                _amount = _amount = 599;
-              });
-            }),
           ]),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -126,25 +116,21 @@ class _VehicleCleanScreenState extends State<VehicleCleanScreen> {
               height: 80,
               width: double.infinity,
               child: ListTile(
-                leading: AppText(
-                  txt: 'Starts at ',
-                  color: Colors.blue,
-                  size: 14,
+                leading: Text(
+                  'Starts at ',
+                  style: subHeadingStyle,
                 ),
-                title: AppText(
-                  txt: '₹ $_amount-/',
-                  size: 16,
-                  color: Colors.black,
-                  fw: FontWeight.bold,
+                title: Text(
+                  '₹ $_amount-/',
+                  style: subHeadingStyle,
                 ),
                 trailing: TextButton(
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(Colors.blue),
                   ),
-                  child: AppText(
-                    txt: 'ADD',
-                    color: Colors.white,
-                    size: 10,
+                  child: Text(
+                    'Add',
+                    style: hintStyle,
                   ),
                   onPressed: () {
                     setState(() {
@@ -156,51 +142,23 @@ class _VehicleCleanScreenState extends State<VehicleCleanScreen> {
               ),
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          gyap(heightgyap: 20),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "What's Included..?",
-                    style: subHeadingStyle,
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Text(
-                    " > Washing & drying \n > Foam wash \n > Glass cleaning \n > Tyre polish",
-                    style: hintStyle,
-                  ),
-                ],
+              Text(
+                "Services",
+                style: subHeadingStyle,
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Excluded",
-                    style: subHeadingStyle,
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Text(
-                    " > Diesel wash \n > Body wax \n ",
-                    style: hintStyle,
-                  )
-                ],
+              const SizedBox(
+                height: 20,
+              ),
+              Text(
+                ' We offer exterior (facade)cleaning and window cleaning services (Glass &ACP)any where in Kerala . Exterior is showing to the destruction of eenvironment and weather, such as dust, pollution, etc\n'
+                '"Price should be calculated based on Total Sq ft"',
+                style: hintStyle,
               ),
             ],
-          ),
-          gyap(heightgyap: 20),
-          Text(
-            'Description',
-            style: subHeadingStyle,
-          ),
-          Text(
-            'A comprehensive doorstep bike & Car wash with foam wash ,glass cleaning ,tyre polishing & paint polishing',
-            style: hintStyle,
           ),
           gyap(heightgyap: 50),
         ]),
@@ -211,11 +169,9 @@ class _VehicleCleanScreenState extends State<VehicleCleanScreen> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            AppText(
-              txt: '₹ $_addamount-/',
-              color: Colors.black,
-              fw: FontWeight.bold,
-              size: 15,
+            Text(
+              '₹ $_addamount-/',
+              style: subHeadingStyle,
             ),
             AppText(txt: '--$_addedType--', color: Colors.black38, size: 10),
             TextButton.icon(
@@ -228,6 +184,7 @@ class _VehicleCleanScreenState extends State<VehicleCleanScreen> {
                   Navigator.pushNamed(context, 'scheduleScreen', arguments: {
                     'price': _addamount,
                     'types': _addedType,
+                    'name': _selectedName
                   });
                 });
               },

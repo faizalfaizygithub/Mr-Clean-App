@@ -1,8 +1,8 @@
 import 'dart:core';
 
 import 'package:clean_app/application/componets/AppText.dart';
-import 'package:clean_app/application/widgets/Services.dart';
-import 'package:clean_app/application/widgets/textInputField.dart';
+import 'package:clean_app/application/componets/Services.dart';
+import 'package:clean_app/application/componets/textInputField.dart';
 import 'package:clean_app/data/provider/house_cleaning_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_picker_timeline/date_picker_widget.dart';
@@ -41,6 +41,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
   final TextEditingController _endTimeController = TextEditingController();
   double? forSchedule;
   String? type;
+  String? name;
   DateTime _selectedDate = DateTime.now();
 
   String _endTime = '10:30 PM';
@@ -72,6 +73,41 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
     } else {
       // Handle other cases or provide a default value
       type = '';
+    }
+    dynamic namevalue = args['name'];
+
+    if (namevalue is String) {
+      name = namevalue.toString();
+    } else if (namevalue is String) {
+      name = namevalue;
+    } else {
+      // Handle other cases or provide a default value
+      name = '';
+    }
+    _addHeadingSec() {
+      return Container(
+        margin: const EdgeInsets.symmetric(horizontal: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              '$name',
+              style: HeadingStyle,
+            ),
+            gyap(heightgyap: 10),
+            Text(
+              DateFormat.yMMMMd().format(
+                DateTime.now(),
+              ),
+              style: subHeadingStyle,
+            ),
+            Text(
+              'Today',
+              style: HeadingStyle,
+            ),
+          ],
+        ),
+      );
     }
 
     return Scaffold(
@@ -153,18 +189,15 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            AppText(
-              txt: '₹$forSchedule-/'.toString(),
-              color: Colors.black,
-              fw: FontWeight.bold,
-              size: 15,
+            Text(
+              '₹$forSchedule-/'.toString(),
+              style: subHeadingStyle,
             ),
             AppText(txt: '$type', color: Colors.black38, size: 10),
             TextButton.icon(
-              label: AppText(
-                txt: 'Continue',
-                color: Colors.black,
-                size: 14,
+              label: Text(
+                'Continue',
+                style: subHeadingStyle,
               ),
               onPressed: () {
                 // Navigate to the 'cartScreen' only if reviewSnap is not null
@@ -181,8 +214,11 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                 _endTimeController.clear(); //end code
 
                 setState(() {
-                  Navigator.pushNamed(context, 'cartScreen',
-                      arguments: {'price': forSchedule, 'types': type});
+                  Navigator.pushNamed(context, 'cartScreen', arguments: {
+                    'price': forSchedule,
+                    'types': type,
+                    'name': name
+                  });
                 });
               },
               icon: const Icon(Icons.arrow_forward_ios),
@@ -234,27 +270,6 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
       ),
     );
   }
-}
-
-_addHeadingSec() {
-  return Container(
-    margin: const EdgeInsets.symmetric(horizontal: 20),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          DateFormat.yMMMMd().format(
-            DateTime.now(),
-          ),
-          style: subHeadingStyle,
-        ),
-        Text(
-          'Today',
-          style: HeadingStyle,
-        ),
-      ],
-    ),
-  );
 }
 
 _addDateSec() {

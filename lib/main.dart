@@ -1,9 +1,12 @@
-import 'package:clean_app/application/widgets/main_pages/HouseCleaning/houseCleaning.dart';
-import 'package:clean_app/application/widgets/main_pages/HouseCleaning/order_confirm.dart';
-import 'package:clean_app/application/widgets/main_pages/HouseCleaning/review_page.dart';
-import 'package:clean_app/application/widgets/main_pages/HouseCleaning/schedule.dart';
-import 'package:clean_app/application/widgets/main_pages/Vehicle_Cleaning/vehicle_cleaning.dart';
-import 'package:clean_app/application/widgets/main_pages/home.dart';
+import 'package:clean_app/application/widgets/common_Screens/home.dart';
+import 'package:clean_app/application/widgets/common_Screens/order_confirm.dart';
+import 'package:clean_app/application/widgets/common_Screens/review_page.dart';
+import 'package:clean_app/application/widgets/common_Screens/schedule.dart';
+import 'package:clean_app/application/widgets/main_pages/Gardening_Page.dart';
+import 'package:clean_app/application/widgets/main_pages/WaterTank_cleaning.dart';
+import 'package:clean_app/application/widgets/main_pages/glass_cleaning.dart';
+import 'package:clean_app/application/widgets/main_pages/houseCleaning.dart';
+import 'package:clean_app/application/widgets/main_pages/vehicle_cleaning.dart';
 import 'package:clean_app/data/provider/exclusion_provider.dart';
 import 'package:clean_app/data/provider/house_cleaning_provider.dart';
 import 'package:clean_app/data/provider/inclusion_provider.dart';
@@ -41,6 +44,9 @@ class MyApp extends StatelessWidget {
             'cartScreen': (context) => const ReviewScreen(),
             'orderConfirm': (context) => const OrderConfirmation(),
             'vehicleScreen': (context) => const VehicleCleanScreen(),
+            'gardenScreen': (context) => const GardeningScreen(),
+            'glassScreen': (context) => const GlassCleaningScreen(),
+            'tankScreen': (context) => const WaterTankScreen(),
           },
           initialRoute: 'homeScreen',
           debugShowCheckedModeBanner: false,

@@ -1,16 +1,31 @@
-// slider photos
-String housepic1 = 'assets/house.jpeg';
-String housepic2 = 'assets/house2.jpeg';
-String vehiclepic1 = 'assets/vehicle.webp';
-String vehiclepic2 = 'assets/vehicle2.webp';
-String vehiclepic3 = 'assets/vehicle3.jpg';
-String shoppic1 = 'assets/shop.jpeg';
-String shoppic2 = 'assets/shop2.jpg';
-String gardenpic1 = 'assets/gardening.jpg';
-String gardenpic2 = 'assets/garden2.webp';
-String bikepic = 'assets/bikeclean.jpg';
-String glasspic1 = 'assets/glass.jpg';
-String glasspic2 = 'assets/glass2.jpg';
+String gardennotes = '* Install and maintain seasonal plants \n'
+    '* Mow, trim and fertilize green spaces\n'
+    '* Mulch, edge and weed gardens\n'
+    '* Prune and trim trees and bushes\n'
+    '* Maintain all gardening equipment and machinery, like mowers, trimmers and leaf blowers\n'
+    '* Monitor and maintain the health of plants\n'
+    '* Deal with pest problems that could damage plants\n'
+    '* Keep gardens and green spaces clear of debris and litter\n';
+
+String gardenskills = '* Experience as a Gardener\n'
+    '* Familiarity with landscaping design\n'
+    '* Extensive knowledge of regional plant life\n'
+    '* Knowledge of local pests and how to eliminate them\n'
+    '* Knowledge of synthetic and natural fertilizers\n'
+    '* Knowledge of state health and safety regulations for landscaping\n'
+    '* The ability to lift heavy objects\n'
+    '* The ability to remain on your feet for long periods of time\n'
+    '* A love of the outdoors and plant life\n'
+    '* A high school degree or GED';
+
+String tanknotes =
+    '1) Cleans interiors of boilers, storage tanks, industrial processing tanks, using shovels, squeegees, brooms, scrapers, hoses, water, and solvents: Drains tank, connects hose to water or steam lines, and sprays walls, roof, and bottom of tank to flush residue, such as oil, acid, grease, and sludge through tank openings.\n'
+    '2) Scrapes and scrubs walls, using detergents, solvents, scrapers, and brushes to remove incrustations, scale, or deposits of coke or catalyst.\n'
+    '3) Sweeps up debris and shovels sludge into buckets or wheelbarrows or down chutes.\n'
+    '4) Removes chemical residues and other liquids from tank bottoms with squeegees or pump and suction hoses.\n'
+    '5) May dry tanks with wood shavings or portable air-drying equipment.\n'
+    '6) May test gas content of tanks.\n'
+    '7) May add specified chemicals to industrial tanks to maintain and replenish tank processing solutions\n';
 
 //logo
 String homelogo = 'assets/logo/home.jpg';
@@ -23,12 +38,11 @@ String tanklogo = 'assets/logo/tank.webp';
 
 // auto slider
 List<String> servicephotos = [
-  'assets/house2.jpeg',
-  'assets/vehicle.webp',
-  'assets/shop.jpeg',
-  'assets/gardening.jpg',
-  'assets/bikeclean.jpg',
-  'assets/glass.jpg',
+  'assets/service/pic1.jpeg',
+  'assets/service/pic2.jpg',
+  'assets/service/pic3.png',
+  'assets/service/pic4.png',
+  'assets/service/pic5.png',
 ];
 
 List<String> homephotos = [
@@ -36,8 +50,8 @@ List<String> homephotos = [
   'assets/img/house4.jpg',
   'assets/img/house6.webp',
   'assets/img/house7.jpg',
-  'assets/house2.jpeg',
-  'assets/house.jpeg',
+  'assets/img/house2.jpeg',
+  'assets/img/house.jpeg',
 ];
 
 //vehicles
@@ -48,4 +62,26 @@ List<String> vehiclesphotos = [
   'assets/vehicles/car1.webp',
   'assets/vehicles/car2.jpg',
   'assets/vehicles/car4.jpg',
+];
+
+List<String> gardenphotos = [
+  'assets/garden/pic4.jpg',
+  'assets/garden/pic1.jpg',
+  'assets/garden/pic2.jpg',
+  'assets/garden/pic3.jpg',
+  'assets/garden/pic5.jpg',
+];
+List<String> glassphotos = [
+  'assets/glass/pic1.jpg',
+  'assets/glass/pic2.webp',
+  'assets/glass/pic3.webp',
+  'assets/glass/pic4.webp',
+  'assets/glass/pic5.png',
+];
+List<String> tankphotos = [
+  'assets/tank/pic4.webp',
+  'assets/tank/pic6.webp',
+  'assets/tank/pic2.jpg',
+  'assets/tank/pic3.jpg',
+  'assets/tank/pic5.jpg',
 ];

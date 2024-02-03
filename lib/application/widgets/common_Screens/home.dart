@@ -1,7 +1,7 @@
 import 'package:clean_app/application/componets/AppText.dart';
+import 'package:clean_app/application/componets/Carousel.dart';
+import 'package:clean_app/application/componets/Services.dart';
 import 'package:clean_app/application/componets/assets.dart';
-import 'package:clean_app/application/widgets/Carousel.dart';
-import 'package:clean_app/application/widgets/Services.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -35,12 +35,10 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.only(top: 20, left: 20),
               child: Row(
                 children: [
-                  AppText(
-                    txt: 'Our Services for you..',
-                    size: 18,
-                    color: Colors.black87,
-                    fs: FontStyle.italic,
-                  ),
+                  Text(
+                    'Our Services for you..',
+                    style: HeadingStyle,
+                  )
                 ],
               ),
             ),
@@ -67,21 +65,21 @@ class _HomePageState extends State<HomePage> {
                 img: gardnlogo,
                 title: 'Gardening',
                 action: () {
-                  Navigator.of(context).pushNamed('houseScreen');
+                  Navigator.of(context).pushNamed('gardenScreen');
                 }),
             gyap(heightgyap: 15),
             ServiceCard(
                 img: shoplogo,
                 title: 'Building Glass ',
                 action: () {
-                  Navigator.of(context).pushNamed('houseScreen');
+                  Navigator.of(context).pushNamed('glassScreen');
                 }),
             gyap(heightgyap: 15),
             ServiceCard(
                 img: tanklogo,
                 title: 'WaterTank Clean',
                 action: () {
-                  Navigator.of(context).pushNamed('houseScreen');
+                  Navigator.of(context).pushNamed('tankScreen');
                 }),
             gyap(heightgyap: 15),
           ],

@@ -35,9 +35,9 @@ class ServiceCard extends StatelessWidget {
             radius: 35,
           ),
           gyap(widthgyap: 5),
-          AppText(
-            txt: title,
-            size: 15,
+          Text(
+            title,
+            style: subHeadingStyle,
           ),
           gyap(widthgyap: 10),
           IconButton(
