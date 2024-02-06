@@ -46,6 +46,7 @@ dependencies:
   get: ^4.6.6
   lottie: ^3.0.0
   popover: ^0.2.9
+  firebase_auth: ^4.17.3
   
 
 dev_dependencies:

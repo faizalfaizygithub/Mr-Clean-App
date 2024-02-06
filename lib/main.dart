@@ -1,11 +1,19 @@
-import 'package:clean_app/application/widgets/common_Screens/home.dart';
+import 'package:clean_app/application/componets/AppText.dart';
+import 'package:clean_app/application/widgets/common_Screens/admin_pages.dart';
+import 'package:clean_app/application/widgets/common_Screens/homePage.dart';
+import 'package:clean_app/application/widgets/common_Screens/login_page.dart';
+import 'package:clean_app/application/widgets/common_Screens/mainPage.dart';
 import 'package:clean_app/application/widgets/common_Screens/order_confirm.dart';
 import 'package:clean_app/application/widgets/common_Screens/review_page.dart';
 import 'package:clean_app/application/widgets/common_Screens/schedule.dart';
+import 'package:clean_app/application/widgets/common_Screens/sign_up_page.dart';
+import 'package:clean_app/application/widgets/common_Screens/splash_screen.dart';
 import 'package:clean_app/application/widgets/main_pages/Gardening_Page.dart';
 import 'package:clean_app/application/widgets/main_pages/WaterTank_cleaning.dart';
 import 'package:clean_app/application/widgets/main_pages/glass_cleaning.dart';
 import 'package:clean_app/application/widgets/main_pages/houseCleaning.dart';
+import 'package:clean_app/application/widgets/main_pages/profile_page.dart';
+import 'package:clean_app/application/widgets/main_pages/settings_page.dart';
 import 'package:clean_app/application/widgets/main_pages/vehicle_cleaning.dart';
 import 'package:clean_app/data/provider/exclusion_provider.dart';
 import 'package:clean_app/data/provider/house_cleaning_provider.dart';
@@ -38,7 +46,13 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
           routes: {
+            'splashScreen': (context) => const SplashScreen(),
+            'loginScreen': (context) => const LoginPage(),
+            'signupScreen': (context) => const SignUpScreen(),
+            'mainPage': (context) => const MainPage(),
             'homeScreen': (context) => const HomePage(),
+            'profilePage': (context) => const ProfilePage(),
+            'settingsPage': (context) => const SettingsPage(),
             'houseScreen': (context) => const HouseCleanScreen(),
             'scheduleScreen': (context) => const ScheduleScreen(),
             'cartScreen': (context) => const ReviewScreen(),
@@ -47,12 +61,16 @@ class MyApp extends StatelessWidget {
             'gardenScreen': (context) => const GardeningScreen(),
             'glassScreen': (context) => const GlassCleaningScreen(),
             'tankScreen': (context) => const WaterTankScreen(),
+            'adminPanel': (context) => const AdminPage()
           },
-          initialRoute: 'homeScreen',
+          initialRoute: 'mainPage',
           debugShowCheckedModeBanner: false,
           title: 'Flutter Demo',
           theme: ThemeData(
-            appBarTheme: AppBarTheme(backgroundColor: Colors.yellow.shade400),
+            appBarTheme: AppBarTheme(
+                backgroundColor: Colors.yellow.shade400,
+                centerTitle: true,
+                titleTextStyle: HeadingStyle),
             scaffoldBackgroundColor: Colors.white,
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
             useMaterial3: true,

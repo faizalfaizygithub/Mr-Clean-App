@@ -17,7 +17,7 @@ class _GlassCleaningScreenState extends State<GlassCleaningScreen> {
 
   bool _click = true;
   String _addedType = 'null';
-  String _selectedType = 'Indoor';
+  String _selectedType = 'Normal';
   int _addamount = 0;
   int get addamount => _addamount;
   int _amount = 199;

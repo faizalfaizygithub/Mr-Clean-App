@@ -4,12 +4,13 @@ import 'package:flutter/material.dart';
 class ServiceCard extends StatelessWidget {
   final String img;
   final String title;
-  final void Function() action;
+
+  final void Function() inkTap;
   ServiceCard(
       {super.key,
       required this.img,
       required this.title,
-      required this.action});
+      required this.inkTap});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -18,34 +19,32 @@ class ServiceCard extends StatelessWidget {
         BoxShadow(
             color: Colors.grey.shade500,
             offset: const Offset(
-              3,
-              8,
+              0,
+              5,
             ),
             blurRadius: 5),
       ]),
       height: 150,
       width: MediaQuery.of(context).size.width,
-      child: Card(
-          child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          gyap(widthgyap: 10),
-          CircleAvatar(
-            backgroundImage: AssetImage(img),
-            radius: 35,
-          ),
-          gyap(widthgyap: 5),
-          Text(
-            title,
-            style: subHeadingStyle,
-          ),
-          gyap(widthgyap: 10),
-          IconButton(
-            onPressed: action,
-            icon: const Icon(Icons.arrow_forward_ios),
-          ),
-        ],
-      )),
+      child: InkWell(
+        onTap: inkTap,
+        child: Card(
+            child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            gyap(widthgyap: 5),
+            CircleAvatar(
+              backgroundImage: AssetImage(img),
+              radius: 35,
+            ),
+            Text(
+              title,
+              style: subHeadingStyle,
+            ),
+            gyap(widthgyap: 10),
+          ],
+        )),
+      ),
     );
   }
 }

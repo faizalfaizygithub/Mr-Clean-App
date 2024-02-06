@@ -33,10 +33,12 @@ class _OrderConfirmationState extends State<OrderConfirmation> {
     }
     return Scaffold(
       appBar: AppBar(
-          title: Text(
-        'Order Confirmation',
-        style: HeadingStyle,
-      )),
+        title: Text(
+          'Order Confirmation',
+          style: HeadingStyle,
+        ),
+        automaticallyImplyLeading: false,
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -131,7 +133,13 @@ class _OrderConfirmationState extends State<OrderConfirmation> {
                     color: Colors.white,
                   ),
                 ],
-              )
+              ),
+              gyap(heightgyap: 50),
+              MyButton(
+                  text: 'Admin Only',
+                  action: () {
+                    Navigator.pushNamed(context, 'adminPanel');
+                  }),
             ],
           ),
         ),

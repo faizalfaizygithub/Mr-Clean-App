@@ -1,9 +1,13 @@
 import 'package:clean_app/application/componets/AppText.dart';
 import 'package:clean_app/application/componets/Services.dart';
+import 'package:clean_app/application/componets/my_button.dart';
 import 'package:clean_app/application/componets/textInputField.dart';
 import 'package:clean_app/data/provider/house_cleaning_provider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:intl/intl.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 class ReviewScreen extends StatefulWidget {
@@ -17,10 +21,40 @@ class _ReviewScreenState extends State<ReviewScreen> {
   final TextEditingController _dateController = TextEditingController();
   final TextEditingController _startTimeController = TextEditingController();
   final TextEditingController _endTimeController = TextEditingController();
+  final TextEditingController _addressController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
   double? forReview;
   String? type;
   String? status;
   String? name;
+
+  void addSchedule() {
+    final data = {
+      'name': name,
+      'price': forReview,
+      'types': type,
+      'date': _selectedDate,
+      'starttime': _startTime,
+      'endtime': _endTime,
+      'username': _nameController.text,
+      'userphone': _phoneController.text,
+      'address': _addressController.text,
+    };
+    _items.add(data);
+  }
+
+  final CollectionReference _items =
+      FirebaseFirestore.instance.collection('review');
+  void deleteReview(docId) {
+    _items.doc(docId).delete();
+  }
+
+  final DateTime _selectedDate = DateTime.now();
+
+  final String _endTime = '10:30 PM';
+  final String _startTime =
+      DateFormat('hh:mm a').format(DateTime.now()).toString();
   @override
   Widget build(BuildContext context) {
     final args =
@@ -83,6 +117,11 @@ class _ReviewScreenState extends State<ReviewScreen> {
         ),
       );
     }
+
+    String selectedDate = context.watch<HouseCleaningProvider>().userDate;
+    String selectedStarttime =
+        context.watch<HouseCleaningProvider>().userStartTime;
+    String selectedEndTime = context.watch<HouseCleaningProvider>().userEndTime;
 
     return Scaffold(
       appBar: AppBar(
@@ -210,7 +249,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                 TextInputField(
                   controller: _dateController,
                   title: 'Date:',
-                  hint: context.watch<HouseCleaningProvider>().userDate,
+                  hint: selectedDate,
                   widget: const SizedBox(),
                 ),
                 Row(
@@ -218,9 +257,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                     Expanded(
                       child: TextInputField(
                         title: 'Start Time:',
-                        hint: context
-                            .watch<HouseCleaningProvider>()
-                            .userStartTime,
+                        hint: selectedStarttime,
                         widget: const SizedBox(),
                         controller: _startTimeController,
                       ),
@@ -228,8 +265,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                     Expanded(
                       child: TextInputField(
                         title: 'End Time:',
-                        hint:
-                            context.watch<HouseCleaningProvider>().userEndTime,
+                        hint: selectedEndTime,
                         widget: const SizedBox(),
                         controller: _endTimeController,
                       ),
@@ -237,6 +273,17 @@ class _ReviewScreenState extends State<ReviewScreen> {
                   ],
                 ),
                 gyap(heightgyap: 30),
+                Text(
+                  'Details:',
+                  style: subHeadingStyle,
+                ),
+                gyap(heightgyap: 15),
+                currentAddress('Name', _nameController),
+                gyap(heightgyap: 15),
+                currentAddress('Phone', _phoneController),
+                gyap(heightgyap: 15),
+                currentAddress('Address', _addressController),
+                gyap(heightgyap: 20),
                 Text(
                   'Select Payment Method:',
                   style: subHeadingStyle,
@@ -248,7 +295,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                     'Net Banking',
                     'This method has low success,use UPI or Cards for better experience',
                     () => null),
-                paymentMethod('COD', 'Cash On Delivery', () => null)
+                paymentMethod('COD', 'Cash On Delivery', () => null),
               ]),
         ),
       ),
@@ -264,20 +311,34 @@ class _ReviewScreenState extends State<ReviewScreen> {
             ),
             TextButton.icon(
               label: Text(
-                'Confirm Order',
+                'Place Order',
                 style: subHeadingStyle,
               ),
               onPressed: () {
-                setState(() {
-                  Navigator.pushNamed(context, 'orderConfirm', arguments: {
-                    'price': forReview,
-                  });
-                });
+                showImagePickerOption(context);
               },
               icon: const Icon(Icons.arrow_forward_ios),
-            )
+            ),
           ],
         ),
+      ),
+    );
+  }
+
+  currentAddress(name, controller) {
+    return Container(
+      decoration: BoxDecoration(
+          border: Border.all(
+            color: Colors.black,
+          ),
+          borderRadius: BorderRadius.circular(5)),
+      child: TextFormField(
+        style: const TextStyle(color: Colors.black),
+        controller: controller,
+        decoration: InputDecoration(
+            contentPadding: EdgeInsets.symmetric(horizontal: 10),
+            hintText: name,
+            enabled: true),
       ),
     );
   }
@@ -303,5 +364,63 @@ class _ReviewScreenState extends State<ReviewScreen> {
         ],
       ),
     );
+  }
+
+  void showImagePickerOption(BuildContext context) {
+    showModalBottomSheet(
+        backgroundColor: Colors.grey.shade200,
+        context: context,
+        builder: (builder) {
+          return Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: SizedBox(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height / 4.0,
+                child: Column(
+                  children: [
+                    Text(
+                      'Please Confirm Your Booking',
+                      style: hintStyle,
+                    ),
+                    Lottie.asset('assets/json/hand.json',
+                        height: 80, width: 80),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        MyButton(
+                          text: 'Cancel',
+                          action: () {
+                            Navigator.pop(context);
+                          },
+                        ),
+                        MyButton(
+                          text: 'Confirm Order',
+                          color: Colors.yellow.shade400,
+                          action: () async {
+                            try {
+                              if (type!.isEmpty) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content:
+                                        Text('Please select your category'),
+                                  ),
+                                );
+                                return;
+                              }
+
+                              addSchedule();
+
+                              Navigator.of(context).pushReplacementNamed(
+                                  'orderConfirm',
+                                  arguments: {'price': forReview});
+                            } catch (e) {}
+                          },
+                        ),
+                      ],
+                    )
+                  ],
+                )),
+          );
+        });
   }
 }

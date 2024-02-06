@@ -38,17 +38,26 @@ class AppText extends StatelessWidget {
 TextStyle get subHeadingStyle {
   return GoogleFonts.lato(
       textStyle: const TextStyle(
-    fontSize: 14,
+    fontSize: 15,
     fontWeight: FontWeight.bold,
   ));
 }
 
 TextStyle get HeadingStyle {
   return GoogleFonts.lato(
-      textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold));
+      textStyle: const TextStyle(
+          fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black));
+}
+
+TextStyle get LoginStyle {
+  return GoogleFonts.aBeeZee(
+      textStyle: const TextStyle(
+          fontSize: 22,
+          fontWeight: FontWeight.bold,
+          color: Color.fromARGB(255, 192, 176, 31)));
 }
 
 TextStyle get hintStyle {
   return GoogleFonts.lato(
-      textStyle: const TextStyle(fontSize: 11, color: Colors.black));
+      textStyle: const TextStyle(fontSize: 11, color: Colors.black87));
 }

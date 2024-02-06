@@ -19,26 +19,15 @@ class ScheduleScreen extends StatefulWidget {
 }
 
 class _ScheduleScreenState extends State<ScheduleScreen> {
-  void deleteReview(docId) {
-    _items.doc(docId).delete();
-  }
-
-  void addSchedule() {
-    final data = {
-      'name': 'Full Home Deep Cleaning',
-      'price': forSchedule,
-      'types': type,
-      'date': _selectedDate,
-      'starttime': _startTime,
-      'endtime': _endTime,
-    };
-  }
-
-  final CollectionReference _items =
-      FirebaseFirestore.instance.collection('review');
   final TextEditingController _dateController = TextEditingController();
   final TextEditingController _startTimeController = TextEditingController();
   final TextEditingController _endTimeController = TextEditingController();
+  final TextEditingController _addressController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+
+  final CollectionReference _items =
+      FirebaseFirestore.instance.collection('review');
   double? forSchedule;
   String? type;
   String? name;
@@ -85,28 +74,25 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
       name = '';
     }
     _addHeadingSec() {
-      return Container(
-        margin: const EdgeInsets.symmetric(horizontal: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              '$name',
-              style: HeadingStyle,
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            '$name',
+            style: subHeadingStyle,
+          ),
+          gyap(heightgyap: 10),
+          Text(
+            DateFormat.yMMMMd().format(
+              DateTime.now(),
             ),
-            gyap(heightgyap: 10),
-            Text(
-              DateFormat.yMMMMd().format(
-                DateTime.now(),
-              ),
-              style: subHeadingStyle,
-            ),
-            Text(
-              'Today',
-              style: HeadingStyle,
-            ),
-          ],
-        ),
+            style: hintStyle,
+          ),
+          Text(
+            'Today',
+            style: subHeadingStyle,
+          ),
+        ],
       );
     }
 
@@ -123,65 +109,69 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
               Navigator.pop(context);
             }),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          gyap(heightgyap: 5),
-          _addHeadingSec(),
-          _addDateSec(),
-          TextInputField(
-            controller: _dateController,
-            title: 'Date:',
-            hint: DateFormat.yMd().format(_selectedDate).toString(),
-            widget: IconButton(
-              icon: const Icon(
-                Icons.calendar_month,
-                color: Colors.grey,
+      body: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              gyap(heightgyap: 5),
+              _addHeadingSec(),
+              _addDateSec(),
+              TextInputField(
+                controller: _dateController,
+                title: 'Date:',
+                hint: DateFormat.yMd().format(_selectedDate).toString(),
+                widget: IconButton(
+                  icon: const Icon(
+                    Icons.calendar_month,
+                    color: Colors.grey,
+                  ),
+                  onPressed: () {
+                    _addDateFromUser();
+                  },
+                ),
               ),
-              onPressed: () {
-                _addDateFromUser();
-              },
-            ),
-          ),
-          Expanded(
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextInputField(
-                    title: 'Start Time:',
-                    hint: _startTime,
-                    widget: IconButton(
-                      icon: const Icon(
-                        Icons.access_time,
-                        color: Colors.grey,
+              Row(
+                children: [
+                  Expanded(
+                    child: TextInputField(
+                      title: 'Start Time:',
+                      hint: _startTime,
+                      widget: IconButton(
+                        icon: const Icon(
+                          Icons.access_time,
+                          color: Colors.grey,
+                        ),
+                        onPressed: () {
+                          _addTimeFromUser(isStartTime: true);
+                        },
                       ),
-                      onPressed: () {
-                        _addTimeFromUser(isStartTime: true);
-                      },
+                      controller: _startTimeController,
                     ),
-                    controller: _startTimeController,
                   ),
-                ),
-                Expanded(
-                  child: TextInputField(
-                    title: 'End Time:',
-                    hint: _endTime,
-                    widget: IconButton(
-                      icon: const Icon(
-                        Icons.access_time,
-                        color: Colors.grey,
+                  Expanded(
+                    child: TextInputField(
+                      title: 'End Time:',
+                      hint: _endTime,
+                      widget: IconButton(
+                        icon: const Icon(
+                          Icons.access_time,
+                          color: Colors.grey,
+                        ),
+                        onPressed: () {
+                          _addTimeFromUser(isStartTime: false);
+                        },
                       ),
-                      onPressed: () {
-                        _addTimeFromUser(isStartTime: false);
-                      },
+                      controller: _endTimeController,
                     ),
-                    controller: _endTimeController,
                   ),
-                ),
-              ],
-            ),
+                ],
+              ),
+              gyap(heightgyap: 15),
+            ],
           ),
-        ],
+        ),
       ),
       bottomNavigationBar: Container(
         padding: const EdgeInsets.only(left: 10, right: 10),
@@ -201,7 +191,6 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
               ),
               onPressed: () {
                 // Navigate to the 'cartScreen' only if reviewSnap is not null
-                addSchedule();
 
                 //for navigate to reviewscreen date,time datas
                 context.read<HouseCleaningProvider>().changeUserSchedule(
@@ -274,27 +263,24 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
 
 _addDateSec() {
   DateTime _selectedDate = DateTime.now();
-  return Container(
-    margin: const EdgeInsets.only(top: 10, left: 20),
-    child: DatePicker(DateTime.now(),
-        height: 110,
-        width: 90,
-        initialSelectedDate: DateTime.now(),
-        selectionColor: Colors.blue,
-        selectedTextColor: Colors.white,
-        dateTextStyle: GoogleFonts.lato(
-          textStyle: const TextStyle(
-              fontSize: 16, color: Colors.grey, fontWeight: FontWeight.w600),
-        ),
-        dayTextStyle: GoogleFonts.lato(
-          textStyle: const TextStyle(
-              fontSize: 10, color: Colors.grey, fontWeight: FontWeight.w600),
-        ),
-        monthTextStyle: GoogleFonts.lato(
-          textStyle: const TextStyle(
-              fontSize: 10, color: Colors.grey, fontWeight: FontWeight.w600),
-        ), onDateChange: (date) {
-      _selectedDate = date;
-    }),
-  );
+  return DatePicker(DateTime.now(),
+      height: 110,
+      width: 90,
+      initialSelectedDate: DateTime.now(),
+      selectionColor: Colors.blue,
+      selectedTextColor: Colors.white,
+      dateTextStyle: GoogleFonts.lato(
+        textStyle: const TextStyle(
+            fontSize: 16, color: Colors.grey, fontWeight: FontWeight.w600),
+      ),
+      dayTextStyle: GoogleFonts.lato(
+        textStyle: const TextStyle(
+            fontSize: 10, color: Colors.grey, fontWeight: FontWeight.w600),
+      ),
+      monthTextStyle: GoogleFonts.lato(
+        textStyle: const TextStyle(
+            fontSize: 10, color: Colors.grey, fontWeight: FontWeight.w600),
+      ), onDateChange: (date) {
+    _selectedDate = date;
+  });
 }

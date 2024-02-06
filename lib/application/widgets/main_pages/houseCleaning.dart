@@ -243,18 +243,15 @@ class _HouseCleanScreenState extends State<HouseCleanScreen> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            AppText(
-              txt: '₹ $_addamount-/',
-              color: Colors.black,
-              fw: FontWeight.bold,
-              size: 15,
+            Text(
+              '₹ $_addamount-/',
+              style: subHeadingStyle,
             ),
             AppText(txt: '--$_addedType--', color: Colors.black38, size: 10),
             TextButton.icon(
-              label: AppText(
-                txt: 'Continue',
-                color: Colors.black,
-                size: 14,
+              label: Text(
+                'Continue',
+                style: subHeadingStyle,
               ),
               onPressed: () {
                 setState(() {
