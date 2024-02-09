@@ -6,6 +6,7 @@ import 'package:clean_app/data/provider/house_cleaning_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
@@ -28,7 +29,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
   String? type;
   String? status;
   String? name;
-
+  var loading = false.obs;
   void addSchedule() {
     final data = {
       'name': name,
@@ -93,19 +94,13 @@ class _ReviewScreenState extends State<ReviewScreen> {
     }
 
     Widget paymentMethod(
-      final paymntText,
-      final subtxt,
-      Function() action,
+      final String paymntText,
+      final String subtxt,
+      Function() buttonClick,
+      IconData icon1,
     ) {
-      return RadioListTile(
-        activeColor: Colors.blue,
-        onChanged: (value) {
-          setState(() {
-            status = value;
-          });
-        },
-        value: paymntText,
-        groupValue: status,
+      return ListTile(
+        leading: Icon(icon1),
         title: Text(
           paymntText,
           style: hintStyle,
@@ -115,6 +110,8 @@ class _ReviewScreenState extends State<ReviewScreen> {
           size: 10,
           color: Colors.grey,
         ),
+        trailing: Icon(Icons.arrow_forward_ios),
+        onTap: buttonClick,
       );
     }
 
@@ -288,14 +285,31 @@ class _ReviewScreenState extends State<ReviewScreen> {
                   'Select Payment Method:',
                   style: subHeadingStyle,
                 ),
-                paymentMethod('UPI', 'Pay by any UPI app', () => null),
-                paymentMethod('Credit/Debit/ATM Card',
-                    'Add and secure cards as per RBI guidelines', () => null),
                 paymentMethod(
-                    'Net Banking',
-                    'This method has low success,use UPI or Cards for better experience',
-                    () => null),
-                paymentMethod('COD', 'Cash On Delivery', () => null),
+                  'UPI',
+                  'Pay by any UPI app',
+                  () {
+                    Navigator.pushNamed(context, 'upiScreen');
+                  },
+                  Icons.mobile_friendly,
+                ),
+                paymentMethod(
+                  'Credit/Debit/ATM card',
+                  'Add and secure cards as per RBI guidelines',
+                  () {
+                    Navigator.pushNamed(context, 'creditCardScreen');
+                  },
+                  Icons.credit_card,
+                ),
+                paymentMethod('Net Banking',
+                    'net banking is too slow.. you can use UPI apps or Cards for better experience',
+                    () {
+                  Navigator.pushNamed(context, 'updateSoon');
+                }, Icons.business),
+                paymentMethod('Cash On Delivery',
+                    'Please give the cash or Gpay to our profesionals', () {
+                  CODbottomBar(context);
+                }, Icons.money),
               ]),
         ),
       ),
@@ -315,7 +329,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                 style: subHeadingStyle,
               ),
               onPressed: () {
-                showImagePickerOption(context);
+                bottomBar(context);
               },
               icon: const Icon(Icons.arrow_forward_ios),
             ),
@@ -336,8 +350,9 @@ class _ReviewScreenState extends State<ReviewScreen> {
         style: const TextStyle(color: Colors.black),
         controller: controller,
         decoration: InputDecoration(
-            contentPadding: EdgeInsets.symmetric(horizontal: 10),
+            contentPadding: const EdgeInsets.symmetric(horizontal: 10),
             hintText: name,
+            hintStyle: const TextStyle(color: Colors.grey, fontSize: 12),
             enabled: true),
       ),
     );
@@ -366,7 +381,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
     );
   }
 
-  void showImagePickerOption(BuildContext context) {
+  void bottomBar(BuildContext context) {
     showModalBottomSheet(
         backgroundColor: Colors.grey.shade200,
         context: context,
@@ -380,7 +395,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                   children: [
                     Text(
                       'Please Confirm Your Booking',
-                      style: hintStyle,
+                      style: ConfirmStyle,
                     ),
                     Lottie.asset('assets/json/hand.json',
                         height: 80, width: 80),
@@ -398,26 +413,89 @@ class _ReviewScreenState extends State<ReviewScreen> {
                           color: Colors.yellow.shade400,
                           action: () async {
                             try {
-                              if (type!.isEmpty) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content:
-                                        Text('Please select your category'),
-                                  ),
-                                );
-                                return;
+                              loading.value = true;
+
+                              if (type!.isNotEmpty) {
+                                addSchedule();
+
+                                Navigator.of(context).pushReplacementNamed(
+                                    'orderConfirm',
+                                    arguments: {'price': forReview});
+                                loading.value = false;
+                              } else {
+                                incompleateData();
+                                loading.value = false;
                               }
-
-                              addSchedule();
-
-                              Navigator.of(context).pushReplacementNamed(
-                                  'orderConfirm',
-                                  arguments: {'price': forReview});
-                            } catch (e) {}
+                            } catch (e) {
+                              Get.snackbar('incorrect', '$e');
+                            }
                           },
                         ),
                       ],
-                    )
+                    ),
+                  ],
+                )),
+          );
+        });
+  }
+
+  void incompleateData() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            icon: Icon(Icons.dangerous_rounded),
+            iconColor: Colors.red,
+            title: AppText(
+              txt: 'Please Select Your Category',
+              size: 12,
+              color: Colors.red,
+            ),
+          );
+        });
+  }
+
+  void CODbottomBar(BuildContext context) {
+    showModalBottomSheet(
+        backgroundColor: Colors.grey.shade200,
+        context: context,
+        builder: (builder) {
+          return Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: SizedBox(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height / 3.2,
+                child: Column(
+                  children: [
+                    Text(
+                      'Confirm Cash on Delivery Order',
+                      style: ConfirmStyle,
+                    ),
+                    Lottie.asset('assets/json/cod.json', height: 80, width: 80),
+                    AppText(
+                      txt:
+                          'Pay via Cash /UPI or ATM Card when you receive your service',
+                      size: 10,
+                      color: Color.fromARGB(255, 20, 117, 228),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        MyButton(
+                          text: 'Cancel',
+                          action: () {
+                            Navigator.pop(context);
+                          },
+                        ),
+                        MyButton(
+                          text: 'Confirm',
+                          color: Colors.yellow.shade400,
+                          action: () {
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ],
+                    ),
                   ],
                 )),
           );

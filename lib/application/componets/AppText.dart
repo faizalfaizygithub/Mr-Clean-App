@@ -44,7 +44,7 @@ TextStyle get subHeadingStyle {
 }
 
 TextStyle get HeadingStyle {
-  return GoogleFonts.lato(
+  return GoogleFonts.aBeeZee(
       textStyle: const TextStyle(
           fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black));
 }
@@ -60,4 +60,17 @@ TextStyle get LoginStyle {
 TextStyle get hintStyle {
   return GoogleFonts.lato(
       textStyle: const TextStyle(fontSize: 11, color: Colors.black87));
+}
+
+TextStyle get buttonStyle {
+  Color? color;
+  return GoogleFonts.lato(
+      textStyle:
+          TextStyle(fontSize: 11, color: color, fontWeight: FontWeight.bold));
+}
+
+TextStyle get ConfirmStyle {
+  return GoogleFonts.aBeeZee(
+      textStyle: const TextStyle(
+          fontSize: 12, fontWeight: FontWeight.bold, color: Colors.black87));
 }

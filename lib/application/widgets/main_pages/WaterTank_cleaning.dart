@@ -16,7 +16,7 @@ class _WaterTankScreenState extends State<WaterTankScreen> {
   String _selectedName = 'Water Tank Cleaning ';
 
   bool _click = true;
-  String _addedType = 'null';
+  String _addedType = '';
   String _selectedType = 'home';
   int _addamount = 0;
   int get addamount => _addamount;

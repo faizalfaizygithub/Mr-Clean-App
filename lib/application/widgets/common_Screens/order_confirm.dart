@@ -38,6 +38,13 @@ class _OrderConfirmationState extends State<OrderConfirmation> {
           style: HeadingStyle,
         ),
         automaticallyImplyLeading: false,
+        actions: [
+          IconButton(
+              onPressed: () {
+                signOutPopup();
+              },
+              icon: Icon(Icons.exit_to_app))
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -128,7 +135,7 @@ class _OrderConfirmationState extends State<OrderConfirmation> {
                   MyButton(
                     text: 'Home',
                     action: () {
-                      Navigator.pushNamed(context, 'homeScreen');
+                      Navigator.pushReplacementNamed(context, 'mainPage');
                     },
                     color: Colors.white,
                   ),
@@ -145,5 +152,34 @@ class _OrderConfirmationState extends State<OrderConfirmation> {
         ),
       ),
     );
+  }
+
+  void signOutPopup() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text(
+              'Sign out',
+              style: HeadingStyle,
+            ),
+            content: Text(
+              'Are you sure want to Sign Out?',
+              style: hintStyle,
+            ),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text('NO')),
+              TextButton(
+                  onPressed: () {
+                    Navigator.pushReplacementNamed(context, 'loginScreen');
+                  },
+                  child: Text('YES')),
+            ],
+          );
+        });
   }
 }

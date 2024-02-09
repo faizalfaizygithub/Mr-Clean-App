@@ -72,7 +72,9 @@ class _AdminPageState extends State<AdminPage> {
             icon: const Icon(
               Icons.arrow_back_ios,
             ),
-            onPressed: () {}),
+            onPressed: () {
+              Navigator.pop(context);
+            }),
       ),
       body: StreamBuilder<QuerySnapshot>(
           stream: _stream,
@@ -174,13 +176,13 @@ serviceDetails(name, info) {
         gyap(widthgyap: 5),
         Text(
           ':',
-          style: hintStyle,
+          style: subHeadingStyle,
         ),
         gyap(widthgyap: 50),
         Expanded(
           child: Text(
             info,
-            style: HeadingStyle,
+            style: buttonStyle,
           ),
         )
       ],
@@ -194,8 +196,11 @@ Widget scheduleDateTime(
   String buttonText,
 ) {
   return OutlinedButton.icon(
-      style: const ButtonStyle(),
-      onPressed: buttonAction,
-      icon: buttonIcon,
-      label: Text((buttonText).toString()));
+    style: const ButtonStyle(),
+    onPressed: buttonAction,
+    icon: buttonIcon,
+    label: Text(
+      (buttonText).toString(),
+    ),
+  );
 }

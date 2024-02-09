@@ -1,5 +1,4 @@
-import 'package:clean_app/application/widgets/common_Screens/homePage.dart';
-import 'package:clean_app/application/widgets/main_pages/profile_page.dart';
+import 'package:clean_app/application/widgets/main_pages/homePage.dart';
 import 'package:clean_app/application/widgets/main_pages/settings_page.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +12,6 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   final List<Widget> pages = [
     const HomePage(),
-    const ProfilePage(),
     const SettingsPage(),
   ];
 
@@ -35,10 +33,6 @@ class _MainPageState extends State<MainPage> {
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
               label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: 'Profile',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.settings),

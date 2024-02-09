@@ -16,7 +16,7 @@ class _VehicleCleanScreenState extends State<VehicleCleanScreen> {
   String _selectedName = 'Vehicle Cleaning';
 
   bool _click = true;
-  String _addedType = 'null';
+  String _addedType = '';
   String _selectedType = 'Bikes';
   int _addamount = 0;
   int get addamount => _addamount;

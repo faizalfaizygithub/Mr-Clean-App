@@ -16,7 +16,7 @@ class _GardeningScreenState extends State<GardeningScreen> {
   String _selectedName = 'Gardening';
 
   bool _click = true;
-  String _addedType = 'null';
+  String _addedType = '';
   String _selectedType = 'Indoor';
   int _addamount = 0;
   int get addamount => _addamount;

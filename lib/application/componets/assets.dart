@@ -38,10 +38,10 @@ String tanklogo = 'assets/logo/tank.webp';
 
 // auto slider
 List<String> servicephotos = [
-  'assets/service/pic1.jpeg',
-  'assets/service/pic2.jpg',
-  'assets/service/pic3.png',
-  'assets/service/pic4.png',
+  'assets/logo/home.jpg',
+  'assets/logo/car.webp',
+  'assets/logo/glass.jpg',
+  'assets/logo/garden.jpg',
   'assets/service/pic5.png',
 ];
 

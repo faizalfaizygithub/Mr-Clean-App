@@ -16,7 +16,7 @@ class _GlassCleaningScreenState extends State<GlassCleaningScreen> {
   String _selectedName = 'Glass Facade Cleaning Services';
 
   bool _click = true;
-  String _addedType = 'null';
+  String _addedType = '';
   String _selectedType = 'Normal';
   int _addamount = 0;
   int get addamount => _addamount;

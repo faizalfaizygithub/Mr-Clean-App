@@ -17,7 +17,7 @@ class HouseCleanScreen extends StatefulWidget {
 class _HouseCleanScreenState extends State<HouseCleanScreen> {
   String _selectedName = 'Full Home Deep Cleaning';
   bool _click = true;
-  String _addedType = 'Classic';
+  String _addedType = '';
   String _selectedType = 'Classic';
   int _addamount = 0;
   int get addamount => _addamount;

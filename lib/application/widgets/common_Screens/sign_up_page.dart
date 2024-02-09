@@ -37,7 +37,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         width: MediaQuery.of(context).size.width,
         child: ListView(children: [
           Padding(
-            padding: const EdgeInsets.only(top: 50.0),
+            padding: const EdgeInsets.only(top: 60.0),
             child: Column(children: [
               Text('Welcome Back', style: LoginStyle),
               gyap(heightgyap: 20),
@@ -48,22 +48,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
               gyap(heightgyap: 20),
               CustomTextField(
                   controller: usernameController,
-                  hinttxt: 'username',
                   labeltxt: 'username',
                   icon: Icons.person),
-              gyap(heightgyap: 10),
               CustomTextField(
                   controller: _emailController,
-                  hinttxt: 'email',
                   labeltxt: 'email',
                   icon: Icons.email),
-              gyap(heightgyap: 10),
               CustomTextField(
                   controller: _passwordController,
-                  hinttxt: 'minimum 6 digit number',
                   labeltxt: 'password',
+                  suffxicon: Icons.remove_red_eye,
                   icon: Icons.lock),
-              gyap(heightgyap: 10),
               _customButton(() {
                 _signUp();
               }, 'Create account', Color.fromARGB(255, 192, 176, 31),

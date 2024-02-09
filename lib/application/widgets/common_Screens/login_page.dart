@@ -31,58 +31,61 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SizedBox(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        child: ListView(children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 50.0),
-            child: Column(children: [
-              gyap(heightgyap: 80),
-              Text(
-                'Login',
-                style: LoginStyle,
-              ),
-              gyap(heightgyap: 30),
-              CustomTextField(
-                  controller: _emailController,
-                  hinttxt: 'faizy@gmail.com',
-                  labeltxt: 'Email',
-                  icon: Icons.email),
-              gyap(heightgyap: 10),
-              CustomTextField(
-                  controller: _passwordController,
-                  hinttxt: 'minimum 6 digit numbr',
-                  labeltxt: 'Password',
-                  icon: Icons.lock),
-              gyap(heightgyap: 30),
-              _customButton(() {
-                _signIn();
-              }, 'Login', Color.fromARGB(255, 192, 176, 31), Colors.white)
-            ]),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              AppText(
-                txt: "Don't have an account ?",
-                size: 10,
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pushNamed('signupScreen');
-                },
-                child: AppText(
-                  txt: 'Sign Up',
-                  color: Colors.blue,
-                  size: 11,
+        body: Padding(
+            padding: const EdgeInsets.only(top: 150.0),
+            child: SingleChildScrollView(
+              child: Column(children: [
+                Text(
+                  'Login',
+                  style: LoginStyle,
                 ),
-              ),
-            ],
-          )
-        ]),
-      ),
-    );
+                gyap(heightgyap: 20),
+                CustomTextField(
+                    controller: _emailController,
+                    labeltxt: 'Email',
+                    icon: Icons.email),
+                CustomTextField(
+                    controller: _passwordController,
+                    labeltxt: 'Password',
+                    suffxicon: Icons.remove_red_eye,
+                    icon: Icons.lock),
+                Row(
+                  children: [
+                    SizedBox(width: MediaQuery.of(context).size.width * 0.5),
+                    TextButton(
+                        onPressed: () {},
+                        child: AppText(
+                          txt: 'Forgot Password',
+                          size: 10,
+                          color: Colors.blue,
+                        )),
+                  ],
+                ),
+                gyap(heightgyap: 10),
+                _customButton(() {
+                  _signIn();
+                }, 'Login', Color.fromARGB(255, 192, 176, 31), Colors.white),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    AppText(
+                      txt: "Don't have an account ?",
+                      size: 10,
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pushNamed('signupScreen');
+                      },
+                      child: AppText(
+                        txt: 'Sign Up',
+                        color: Colors.blue,
+                        size: 11,
+                      ),
+                    ),
+                  ],
+                ),
+              ]),
+            )));
   }
 
 // wrong email message popup
@@ -111,7 +114,7 @@ class _LoginPageState extends State<LoginPage> {
       loading.value = false;
       if (user != null) {
         print('User sUccesfully signIN');
-        Navigator.of(context).pushNamed('mainPage');
+        Navigator.of(context).pushReplacementNamed('mainPage');
         loading.value = false;
       } else {
         wrongEmailOrpasswordMessage();

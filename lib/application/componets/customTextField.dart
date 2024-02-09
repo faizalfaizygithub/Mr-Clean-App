@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class CustomTextField extends StatelessWidget {
   String labeltxt;
-  String hinttxt;
+
   IconData icon;
   TextEditingController controller;
   IconData? suffxicon;
@@ -10,29 +10,25 @@ class CustomTextField extends StatelessWidget {
   CustomTextField(
       {super.key,
       required this.controller,
-      required this.hinttxt,
       required this.labeltxt,
       this.suffxicon,
       required this.icon});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Container(
-          height: 70,
-          width: 300,
-          alignment: Alignment.center,
-          child: TextField(
-            cursorHeight: 20,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          TextField(
+            style: TextStyle(fontSize: 12),
             cursorColor: Colors.black54,
             controller: controller,
             keyboardType: TextInputType.text,
             enabled: true,
             decoration: InputDecoration(
-              isCollapsed: true,
               filled: true,
               fillColor: Colors.grey.shade200,
               prefixIcon: Icon(
@@ -62,11 +58,6 @@ class CustomTextField extends StatelessWidget {
                 color: Colors.blueGrey,
                 fontSize: 10,
               ),
-              hintText: hinttxt,
-              hintStyle: const TextStyle(
-                color: Colors.black54,
-                fontSize: 10,
-              ),
               suffixIcon: Icon(
                 suffxicon,
                 size: 20,
@@ -74,8 +65,8 @@ class CustomTextField extends StatelessWidget {
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

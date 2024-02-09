@@ -18,23 +18,30 @@ class _SplashScreeState extends State<SplashScreen> {
       const Duration(seconds: 3),
       () => Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const SignUpScreen()),
+        MaterialPageRoute(builder: (context) => SignUpScreen()),
       ),
     );
   }
 
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
-        body: Center(
-          child: Container(
-              color: Colors.white,
-              height: 200,
-              width: 200,
-              child: Container(
-                child:
-                    Image.asset('assets/logo/logo.jpg', fit: BoxFit.fitWidth),
-              )),
-        ));
+      body: Container(
+        alignment: Alignment.center,
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+              colors: [Colors.yellow, Color.fromARGB(255, 192, 176, 31)],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter),
+        ),
+        child: CircleAvatar(
+          radius: 80,
+          backgroundImage: AssetImage(
+            'assets/logo/logo.jpg',
+          ),
+        ),
+      ),
+    );
   }
 }
