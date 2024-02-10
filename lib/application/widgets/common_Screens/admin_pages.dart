@@ -3,6 +3,7 @@ import 'package:clean_app/application/componets/Services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:intl/intl.dart';
 
 class AdminPage extends StatefulWidget {
   const AdminPage({super.key});
@@ -95,6 +96,7 @@ class _AdminPageState extends State<AdminPage> {
                   itemBuilder: (context, index) {
                     final DocumentSnapshot itemSnap = snapshot.data.docs[index];
                     Map thisItems = _items[index];
+
                     return Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: SingleChildScrollView(
@@ -127,9 +129,9 @@ class _AdminPageState extends State<AdminPage> {
                                 serviceDetails(
                                     'Name', '${thisItems['username']}'),
                                 serviceDetails(
-                                    'Type', '${thisItems['userphone']}'),
+                                    'Phone', '${thisItems['userphone']}'),
                                 serviceDetails(
-                                    'Price', '${thisItems['address']}'),
+                                    'Address', '${thisItems['address']}'),
                                 gyap(heightgyap: 50),
                                 Text(
                                   'Service Details',
@@ -142,9 +144,18 @@ class _AdminPageState extends State<AdminPage> {
                                   endIndent: 100,
                                 ),
                                 serviceDetails('Name', '${thisItems['name']}'),
-                                serviceDetails('Type', '${thisItems['types']}'),
+                                serviceDetails(
+                                    'Category', '${thisItems['types']}'),
                                 serviceDetails(
                                     'Price', '${thisItems['price']}'),
+                                serviceDetails(
+                                  'Date',
+                                  thisItems['date'] != null
+                                      ? DateFormat.yMEd()
+                                          .format(thisItems['date'].toDate())
+                                          .toString()
+                                      : 'Date not available',
+                                ),
                                 serviceDetails(
                                     'Start Time', '${thisItems['starttime']}'),
                                 serviceDetails(

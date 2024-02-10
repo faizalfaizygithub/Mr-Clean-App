@@ -25,11 +25,15 @@ class _ReviewScreenState extends State<ReviewScreen> {
   final TextEditingController _addressController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
+
   double? forReview;
   String? type;
   String? status;
   String? name;
   var loading = false.obs;
+
+  get selectedDate => _selectedDate;
+
   void addSchedule() {
     final data = {
       'name': name,
@@ -52,7 +56,6 @@ class _ReviewScreenState extends State<ReviewScreen> {
   }
 
   final DateTime _selectedDate = DateTime.now();
-
   final String _endTime = '10:30 PM';
   final String _startTime =
       DateFormat('hh:mm a').format(DateTime.now()).toString();
@@ -417,7 +420,6 @@ class _ReviewScreenState extends State<ReviewScreen> {
 
                               if (type!.isNotEmpty) {
                                 addSchedule();
-
                                 Navigator.of(context).pushReplacementNamed(
                                     'orderConfirm',
                                     arguments: {'price': forReview});
