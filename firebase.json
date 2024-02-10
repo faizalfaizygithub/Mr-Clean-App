@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "site": "mycleanapp07",
+    "site": "mrcleanapp03",
     "public": "build/web",
     "ignore": [
       "firebase.json",
