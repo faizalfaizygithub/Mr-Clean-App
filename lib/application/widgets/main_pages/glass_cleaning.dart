@@ -37,8 +37,8 @@ class _GlassCleaningScreenState extends State<GlassCleaningScreen> {
           color: const Color.fromARGB(255, 6, 3, 19),
         ),
         alignment: Alignment.center,
-        height: 50,
-        width: 110,
+        height: MediaQuery.of(context).size.height * 0.07,
+        width: MediaQuery.of(context).size.width * 0.30,
         child: InkWell(
           onTap: acn,
           child: AppText(

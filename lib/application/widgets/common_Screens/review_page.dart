@@ -214,7 +214,9 @@ class _ReviewScreenState extends State<ReviewScreen> {
                           size: 20,
                           color: Colors.black,
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(context, 'updateSoon');
+                        },
                       ),
                     ),
                   ),

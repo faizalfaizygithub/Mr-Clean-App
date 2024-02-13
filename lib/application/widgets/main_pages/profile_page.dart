@@ -67,7 +67,7 @@ class _ProfilePageState extends State<ProfilePage> {
               gyap(heightgyap: 70),
               OutlinedButton.icon(
                 onPressed: () {
-                  Navigator.pushReplacementNamed(context, 'loginScreen');
+                  signOutPopup();
                 },
                 icon: Icon(Icons.exit_to_app),
                 label: Text(
@@ -85,5 +85,34 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
       ),
     );
+  }
+
+  void signOutPopup() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text(
+              'Sign out',
+              style: HeadingStyle,
+            ),
+            content: Text(
+              'Are you sure want to Sign Out?',
+              style: hintStyle,
+            ),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text('NO')),
+              TextButton(
+                  onPressed: () {
+                    Navigator.pushReplacementNamed(context, 'loginScreen');
+                  },
+                  child: Text('YES')),
+            ],
+          );
+        });
   }
 }
