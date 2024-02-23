@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "site": "fzycleanapp07",
+    "site": "fzymrcleanapp",
     "public": "build/web",
     "ignore": [
       "firebase.json",
